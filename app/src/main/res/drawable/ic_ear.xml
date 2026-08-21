@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Ear shape -->
+    <path
+        android:pathData="M24,6 C18,6 14,10 13,16 C12,20 13,24 15,27 C16,29 16,31 16,33 L16,38 C16,39.1 16.9,40 18,40 L20,40 C21.1,40 22,39.1 22,38 L22,33 C22,31 22,29 23,27 C24,25 26,24 28,24 C30,24 32,25 33,27 C34,29 34,32 33,35 C32,38 30,40 27,41"
+        android:strokeWidth="2.5"
+        android:strokeColor="@color/primary_blue"
+        android:fillColor="@android:color/transparent" />
+    <!-- Sound waves -->
+    <path
+        android:pathData="M36,20 C38,18 40,21 38,24"
+        android:strokeWidth="2"
+        android:strokeColor="@color/accent_teal"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M39,16 C42,13 45,18 41,24"
+        android:strokeWidth="2"
+        android:strokeColor="@color/accent_teal"
+        android:fillColor="@android:color/transparent" />
+</vector>

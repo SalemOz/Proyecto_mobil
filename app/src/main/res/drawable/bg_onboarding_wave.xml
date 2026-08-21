@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Light blue background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bg_light_blue" />
+        </shape>
+    </item>
+    <!-- Wave decoration at bottom-left -->
+    <item
+        android:left="-40dp"
+        android:bottom="-20dp">
+        <shape android:shape="oval">
+            <solid android:color="#E3F0FC" />
+            <size
+                android:width="200dp"
+                android:height="200dp" />
+        </shape>
+    </item>
+    <!-- Wave decoration at top-right -->
+    <item
+        android:right="-60dp"
+        android:top="-30dp">
+        <shape android:shape="oval">
+            <solid android:color="#DDE9F6" />
+            <size
+                android:width="180dp"
+                android:height="180dp" />
+        </shape>
+    </item>
+</layer-list>
