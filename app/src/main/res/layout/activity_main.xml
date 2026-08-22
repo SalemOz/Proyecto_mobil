@@ -274,8 +274,7 @@
                             android:layout_height="56dp"
                             android:adjustViewBounds="true"
                             android:importantForAccessibility="no"
-                            android:scaleX="-1"
-                            android:src="@drawable/ear_sound" />
+                            android:src="@drawable/ear_left" />
 
                         <TextView
                             android:id="@+id/tv_oido_izquierdo"
@@ -323,7 +322,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:importantForAccessibility="no"
-                            android:src="@drawable/ear_sound" />
+                            android:src="@drawable/ear_right" />
 
                         <TextView
                             android:id="@+id/tv_oido_derecho"
