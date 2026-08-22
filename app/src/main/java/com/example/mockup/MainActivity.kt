@@ -22,7 +22,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ivEarRight: ImageView
     private lateinit var tvEarLeft: TextView
     private lateinit var tvEarRight: TextView
+
     private lateinit var checkRight: ImageView
+
+    private lateinit var checkLeft: ImageView
+
     private lateinit var etName: EditText
     private lateinit var btnContinue: Button
 
@@ -50,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         tvEarLeft = findViewById(R.id.tvEarLeft)
         tvEarRight = findViewById(R.id.tvEarRight)
         checkRight = findViewById(R.id.checkRight)
+        checkLeft = findViewById(R.id.checkLeft)
         etName = findViewById(R.id.etName)
         btnContinue = findViewById(R.id.btnContinue)
     }
@@ -72,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             cardEarLeft.setBackgroundResource(R.drawable.bg_ear_card_selected)
             ivEarLeft.setColorFilter(getColor(R.color.primary_blue))
             tvEarLeft.setTextColor(getColor(R.color.primary_blue))
+            checkLeft.visibility = android.view.View.VISIBLE
 
             // Deselect right
             cardEarRight.setBackgroundResource(R.drawable.bg_ear_card)
@@ -89,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             cardEarLeft.setBackgroundResource(R.drawable.bg_ear_card)
             ivEarLeft.clearColorFilter()
             tvEarLeft.setTextColor(getColor(R.color.text_primary))
+            checkLeft.visibility = android.view.View.GONE
         }
     }
 

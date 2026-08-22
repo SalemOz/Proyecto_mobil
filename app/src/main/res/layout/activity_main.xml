@@ -15,59 +15,45 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- Back arrow -->
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Volver"
-            android:padding="8dp"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Step indicator: 2/3 -->
+        <!-- Step indicator: 1/2 -->
         <TextView
             android:id="@+id/tvStepIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/bg_step_indicator"
             android:fontFamily="sans-serif-medium"
             android:paddingHorizontal="14dp"
             android:paddingVertical="6dp"
-            android:text="2 / 3"
+            android:text="1 / 2"
             android:textColor="@color/primary_blue"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Dots decoration (top right area) -->
         <ImageView
             android:id="@+id/dotsPattern"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
             android:alpha="0.5"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_dots_pattern"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvStepIndicator"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="28dp" />
+            app:layout_constraintTop_toTopOf="@id/tvStepIndicator" />
 
         <!-- Profile avatar container -->
         <FrameLayout
             android:id="@+id/profileContainer"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack">
+            app:layout_constraintTop_toTopOf="parent">
 
             <!-- Circle background -->
             <ImageView
@@ -78,6 +64,7 @@
 
             <!-- Person icon -->
             <ImageView
+                android:id="@+id/iv_perfil"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -91,17 +78,18 @@
                 android:layout_gravity="bottom|end">
 
                 <ImageView
+                    android:id="@+id/btn_editar_perfil"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:importantForAccessibility="no"
                     android:src="@drawable/bg_edit_circle" />
 
                 <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="16dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_edit_pencil" />
+                    android:src="@android:drawable/ic_menu_edit" />
             </FrameLayout>
         </FrameLayout>
 
@@ -115,10 +103,10 @@
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
+            android:letterSpacing="-0.01"
             android:text="Cuéntanos sobre ti"
             android:textColor="@color/text_primary"
             android:textSize="26sp"
-            android:letterSpacing="-0.01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileContainer" />
@@ -231,7 +219,7 @@
                     android:layout_height="22dp"
                     android:layout_marginEnd="8dp"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_ear" />
+                    android:src="@drawable/ear_sound" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -254,8 +242,8 @@
                     android:id="@+id/cardEarLeft"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_ear_card"
                     android:clickable="true"
                     android:focusable="true"
@@ -271,8 +259,10 @@
                             android:id="@+id/ivEarLeft"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
+                            android:adjustViewBounds="true"
                             android:importantForAccessibility="no"
-                            android:src="@drawable/ic_ear" />
+                            android:scaleX="-1"
+                            android:src="@drawable/ear_sound" />
 
                         <TextView
                             android:id="@+id/tvEarLeft"
@@ -283,7 +273,17 @@
                             android:text="Izquierdo"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
+
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/checkLeft"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|end"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_check"
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <!-- Right ear card (selected) -->
@@ -291,8 +291,8 @@
                     android:id="@+id/cardEarRight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="8dp"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_ear_card_selected"
                     android:clickable="true"
                     android:focusable="true"
@@ -309,7 +309,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:importantForAccessibility="no"
-                            android:src="@drawable/ic_ear" />
+                            android:src="@drawable/ear_sound" />
 
                         <TextView
                             android:id="@+id/tvEarRight"
@@ -320,9 +320,9 @@
                             android:text="Derecho"
                             android:textColor="@color/primary_blue"
                             android:textSize="14sp" />
+
                     </LinearLayout>
 
-                    <!-- Checkmark badge -->
                     <ImageView
                         android:id="@+id/checkRight"
                         android:layout_width="24dp"
@@ -330,6 +330,9 @@
                         android:layout_gravity="top|end"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_check" />
+
+                    <!-- Checkmark badge -->
+
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>
