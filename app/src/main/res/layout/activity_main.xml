@@ -16,34 +16,19 @@
         android:paddingBottom="32dp">
 
         <!-- Step indicator: 1/2 -->
-        <TextView
-            android:id="@+id/tv_step_indicador"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/bg_step_indicator"
-            android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="6dp"
-            android:text="1 / 2"
-            android:textColor="@color/primary_blue"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Dots decoration (top right area) -->
         <ImageView
             android:id="@+id/iv_patron_puntos"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="44dp"
             android:layout_marginEnd="16dp"
             android:alpha="0.5"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_dots_pattern"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_step_indicador" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Profile avatar container -->
         <FrameLayout
