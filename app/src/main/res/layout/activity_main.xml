@@ -17,7 +17,7 @@
 
         <!-- Step indicator: 1/2 -->
         <TextView
-            android:id="@+id/tvStepIndicator"
+            android:id="@+id/tv_step_indicador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -34,7 +34,7 @@
 
         <!-- Dots decoration (top right area) -->
         <ImageView
-            android:id="@+id/dotsPattern"
+            android:id="@+id/iv_patron_puntos"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="28dp"
@@ -43,11 +43,11 @@
             android:importantForAccessibility="no"
             android:src="@drawable/ic_dots_pattern"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvStepIndicator" />
+            app:layout_constraintTop_toTopOf="@id/tv_step_indicador" />
 
         <!-- Profile avatar container -->
         <FrameLayout
-            android:id="@+id/profileContainer"
+            android:id="@+id/fl_perfil"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginTop="64dp"
@@ -57,6 +57,7 @@
 
             <!-- Circle background -->
             <ImageView
+                android:id="@+id/iv_fondo_avatar"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:importantForAccessibility="no"
@@ -64,7 +65,7 @@
 
             <!-- Person icon -->
             <ImageView
-                android:id="@+id/iv_perfil"
+                android:id="@+id/iv_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -73,18 +74,20 @@
 
             <!-- Edit pencil badge -->
             <FrameLayout
+                android:id="@+id/fl_editar_avatar"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="bottom|end">
 
                 <ImageView
-                    android:id="@+id/btn_editar_perfil"
+                    android:id="@+id/iv_fondo_editar"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:importantForAccessibility="no"
                     android:src="@drawable/bg_edit_circle" />
 
                 <ImageView
+                    android:id="@+id/iv_editar_avatar"
                     android:layout_width="16dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
@@ -95,7 +98,7 @@
 
         <!-- Title -->
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tv_titulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -109,11 +112,11 @@
             android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profileContainer" />
+            app:layout_constraintTop_toBottomOf="@id/fl_perfil" />
 
         <!-- Subtitle -->
         <TextView
-            android:id="@+id/tvSubtitle"
+            android:id="@+id/tv_subtitulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -126,11 +129,11 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tv_titulo" />
 
         <!-- Section: Name -->
         <LinearLayout
-            android:id="@+id/nameSection"
+            android:id="@+id/ll_seccion_nombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -138,16 +141,18 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitulo">
 
             <!-- Label -->
             <LinearLayout
+                android:id="@+id/ll_label_nombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_icono_nombre"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginEnd="8dp"
@@ -155,6 +160,7 @@
                     android:src="@drawable/ic_person" />
 
                 <TextView
+                    android:id="@+id/tv_pregunta_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
@@ -165,12 +171,14 @@
 
             <!-- Input field -->
             <FrameLayout
+                android:id="@+id/ll_poner_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_name_input">
 
                 <ImageView
+                    android:id="@+id/iv_icono_nombre1"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_gravity="center_vertical"
@@ -179,7 +187,7 @@
                     android:src="@drawable/ic_person" />
 
                 <EditText
-                    android:id="@+id/etName"
+                    android:id="@+id/et_nombre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="44dp"
@@ -197,7 +205,7 @@
 
         <!-- Section: Affected ear -->
         <LinearLayout
-            android:id="@+id/earSection"
+            android:id="@+id/ll_seccion_oido"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -205,16 +213,18 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameSection">
+            app:layout_constraintTop_toBottomOf="@id/ll_seccion_nombre">
 
             <!-- Label -->
             <LinearLayout
+                android:id="@+id/ll_pregunta_oido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_icono_oido"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginEnd="8dp"
@@ -222,6 +232,7 @@
                     android:src="@drawable/ear_sound" />
 
                 <TextView
+                    android:id="@+id/tv_pregunta_oido"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
@@ -232,6 +243,7 @@
 
             <!-- Ear selection cards -->
             <LinearLayout
+                android:id="@+id/ll_opciones_oido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -239,7 +251,7 @@
 
                 <!-- Left ear card (unselected) -->
                 <FrameLayout
-                    android:id="@+id/cardEarLeft"
+                    android:id="@+id/fl_oido_izquierdo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -250,13 +262,14 @@
                     android:padding="16dp">
 
                     <LinearLayout
+                        android:id="@+id/ll_contenido_izquierdo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/ivEarLeft"
+                            android:id="@+id/iv_oido_izquierdo"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:adjustViewBounds="true"
@@ -265,7 +278,7 @@
                             android:src="@drawable/ear_sound" />
 
                         <TextView
-                            android:id="@+id/tvEarLeft"
+                            android:id="@+id/tv_oido_izquierdo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -277,7 +290,7 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/checkLeft"
+                        android:id="@+id/iv_check_izquierdo"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="top|end"
@@ -288,7 +301,7 @@
 
                 <!-- Right ear card (selected) -->
                 <FrameLayout
-                    android:id="@+id/cardEarRight"
+                    android:id="@+id/fl_oido_derecho"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -299,20 +312,21 @@
                     android:padding="16dp">
 
                     <LinearLayout
+                        android:id="@+id/ll_contenido_derecho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/ivEarRight"
+                            android:id="@+id/iv_oido_derecho"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ear_sound" />
 
                         <TextView
-                            android:id="@+id/tvEarRight"
+                            android:id="@+id/tv_oido_derecho"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -324,7 +338,7 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/checkRight"
+                        android:id="@+id/iv_check_derecho"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="top|end"
@@ -339,7 +353,7 @@
 
         <!-- Privacy notice -->
         <LinearLayout
-            android:id="@+id/privacyNotice"
+            android:id="@+id/ll_aviso_privacidad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
@@ -348,9 +362,10 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/earSection">
+            app:layout_constraintTop_toBottomOf="@id/ll_seccion_oido">
 
             <ImageView
+                android:id="@+id/iv_candado_privacidad"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="6dp"
@@ -358,6 +373,7 @@
                 android:src="@drawable/ic_lock" />
 
             <TextView
+                android:id="@+id/tv_aviso_privacidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -369,7 +385,7 @@
 
         <!-- Continue button -->
         <Button
-            android:id="@+id/btnContinue"
+            android:id="@+id/btn_continuar"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginHorizontal="24dp"
@@ -387,7 +403,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/privacyNotice" />
+            app:layout_constraintTop_toBottomOf="@id/ll_aviso_privacidad" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

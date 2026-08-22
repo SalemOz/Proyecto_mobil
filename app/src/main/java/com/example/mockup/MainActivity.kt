@@ -16,19 +16,20 @@ class MainActivity : AppCompatActivity() {
 
     private var selectedEar: String = "right"
 
-    private lateinit var cardEarLeft: FrameLayout
-    private lateinit var cardEarRight: FrameLayout
-    private lateinit var ivEarLeft: ImageView
-    private lateinit var ivEarRight: ImageView
-    private lateinit var tvEarLeft: TextView
-    private lateinit var tvEarRight: TextView
+    private lateinit var flOidoIzquierdo: FrameLayout
+    private lateinit var flOidoDerecho: FrameLayout
 
-    private lateinit var checkRight: ImageView
+    private lateinit var ivOidoIzquierdo: ImageView
+    private lateinit var ivOidoDerecho: ImageView
 
-    private lateinit var checkLeft: ImageView
+    private lateinit var tvOidoIzquierdo: TextView
+    private lateinit var tvOidoDerecho: TextView
 
-    private lateinit var etName: EditText
-    private lateinit var btnContinue: Button
+    private lateinit var ivCheckDerecho: ImageView
+    private lateinit var ivCheckIzquierdo: ImageView
+
+    private lateinit var etNombre: EditText
+    private lateinit var btnContinuar: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,24 +48,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        cardEarLeft = findViewById(R.id.cardEarLeft)
-        cardEarRight = findViewById(R.id.cardEarRight)
-        ivEarLeft = findViewById(R.id.ivEarLeft)
-        ivEarRight = findViewById(R.id.ivEarRight)
-        tvEarLeft = findViewById(R.id.tvEarLeft)
-        tvEarRight = findViewById(R.id.tvEarRight)
-        checkRight = findViewById(R.id.checkRight)
-        checkLeft = findViewById(R.id.checkLeft)
-        etName = findViewById(R.id.etName)
-        btnContinue = findViewById(R.id.btnContinue)
+
+        flOidoIzquierdo = findViewById(R.id.fl_oido_izquierdo)
+        flOidoDerecho = findViewById(R.id.fl_oido_derecho)
+
+        ivOidoIzquierdo = findViewById(R.id.iv_oido_izquierdo)
+        ivOidoDerecho = findViewById(R.id.iv_oido_derecho)
+
+        tvOidoIzquierdo = findViewById(R.id.tv_oido_izquierdo)
+        tvOidoDerecho = findViewById(R.id.tv_oido_derecho)
+
+        ivCheckDerecho = findViewById(R.id.iv_check_derecho)
+        ivCheckIzquierdo = findViewById(R.id.iv_check_izquierdo)
+
+        etNombre = findViewById(R.id.et_nombre)
+        btnContinuar = findViewById(R.id.btn_continuar)
     }
 
     private fun setupEarSelection() {
-        cardEarLeft.setOnClickListener {
+        flOidoIzquierdo.setOnClickListener {
             selectEar("left")
         }
 
-        cardEarRight.setOnClickListener {
+        flOidoDerecho.setOnClickListener {
             selectEar("right")
         }
     }
@@ -74,36 +80,36 @@ class MainActivity : AppCompatActivity() {
 
         if (ear == "left") {
             // Select left
-            cardEarLeft.setBackgroundResource(R.drawable.bg_ear_card_selected)
-            ivEarLeft.setColorFilter(getColor(R.color.primary_blue))
-            tvEarLeft.setTextColor(getColor(R.color.primary_blue))
-            checkLeft.visibility = android.view.View.VISIBLE
+            flOidoIzquierdo.setBackgroundResource(R.drawable.bg_ear_card_selected)
+            ivOidoIzquierdo.setColorFilter(getColor(R.color.primary_blue))
+            tvOidoIzquierdo.setTextColor(getColor(R.color.primary_blue))
+            ivCheckIzquierdo.visibility = android.view.View.VISIBLE
 
             // Deselect right
-            cardEarRight.setBackgroundResource(R.drawable.bg_ear_card)
-            ivEarRight.clearColorFilter()
-            tvEarRight.setTextColor(getColor(R.color.text_primary))
-            checkRight.visibility = android.view.View.GONE
+            flOidoDerecho.setBackgroundResource(R.drawable.bg_ear_card)
+            ivOidoDerecho.clearColorFilter()
+            tvOidoDerecho.setTextColor(getColor(R.color.text_primary))
+            ivCheckDerecho.visibility = android.view.View.GONE
         } else {
             // Select right
-            cardEarRight.setBackgroundResource(R.drawable.bg_ear_card_selected)
-            ivEarRight.setColorFilter(getColor(R.color.primary_blue))
-            tvEarRight.setTextColor(getColor(R.color.primary_blue))
-            checkRight.visibility = android.view.View.VISIBLE
+            flOidoDerecho.setBackgroundResource(R.drawable.bg_ear_card_selected)
+            ivOidoDerecho.setColorFilter(getColor(R.color.primary_blue))
+            tvOidoDerecho.setTextColor(getColor(R.color.primary_blue))
+            ivCheckDerecho.visibility = android.view.View.VISIBLE
 
             // Deselect left
-            cardEarLeft.setBackgroundResource(R.drawable.bg_ear_card)
-            ivEarLeft.clearColorFilter()
-            tvEarLeft.setTextColor(getColor(R.color.text_primary))
-            checkLeft.visibility = android.view.View.GONE
+            flOidoIzquierdo.setBackgroundResource(R.drawable.bg_ear_card)
+            ivOidoIzquierdo.clearColorFilter()
+            tvOidoIzquierdo.setTextColor(getColor(R.color.text_primary))
+            ivCheckIzquierdo.visibility = android.view.View.GONE
         }
     }
 
     private fun setupContinueButton() {
-        btnContinue.setOnClickListener {
-            val name = etName.text.toString().trim()
+        btnContinuar.setOnClickListener {
+            val name = etNombre.text.toString().trim()
             if (name.isEmpty()) {
-                etName.error = "Por favor, ingresa tu nombre"
+                etNombre.error = "Por favor, ingresa tu nombre"
                 return@setOnClickListener
             }
 
