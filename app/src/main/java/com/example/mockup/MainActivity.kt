@@ -106,10 +106,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupContinueButton() {
+        val nameRegex = "^[\\p{L}][\\p{L} '\\-]{0,49}$".toRegex()
+        val consecutiveRegex = "(.)\\1".toRegex()
+        val reservedNames = listOf("admin", "test", "usuario", "user", "root", "prueba")
+
         btnContinuar.setOnClickListener {
             val name = etNombre.text.toString().trim()
             if (name.isEmpty()) {
                 etNombre.error = "Por favor, ingresa tu nombre"
+                return@setOnClickListener
+            }
+
+            if (!nameRegex.matches(name)) {
+                etNombre.error = "Nombre no válido. Usa solo letras, espacios, guiones o apóstrofes (2-50 caracteres)"
+                return@setOnClickListener
+            }
+
+            val stripped = name.lowercase().replace(" ", "").replace("-", "").replace("'", "")
+            if (consecutiveRegex.containsMatchIn(stripped)) {
+                etNombre.error = "El nombre no debe tener caracteres repetidos consecutivos"
+                return@setOnClickListener
+            }
+
+            if (reservedNames.contains(name.lowercase())) {
+                etNombre.error = "Este nombre no está permitido"
                 return@setOnClickListener
             }
 
