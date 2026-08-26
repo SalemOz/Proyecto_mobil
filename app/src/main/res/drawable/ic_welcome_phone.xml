@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="70dp"
+    android:height="70dp"
+    android:viewportWidth="70"
+    android:viewportHeight="70">
+    <!-- Phone body -->
+    <path
+        android:pathData="M20,8 L50,8 C52.2,8 54,9.8 54,12 L54,58 C54,60.2 52.2,62 50,62 L20,62 C17.8,62 16,60.2 16,58 L16,12 C16,9.8 17.8,8 20,8 Z"
+        android:strokeWidth="2.5"
+        android:strokeColor="#1565C0"
+        android:fillColor="@android:color/transparent" />
+    <!-- Screen area -->
+    <path
+        android:pathData="M20,14 L50,14 C50,14 50,56 50,56 L20,56 L20,14 Z"
+        android:fillColor="#E8F4FD" />
+    <!-- Audio wave bars on screen -->
+    <path
+        android:pathData="M26,38 L26,32"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M30,38 L30,26"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M34,38 L34,22"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M38,38 L38,26"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M42,38 L42,32"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:strokeLineCap="round" />
+    <!-- Home button area -->
+    <path
+        android:pathData="M30,60 C30,61 32,62 35,62 C38,62 40,61 40,60"
+        android:strokeWidth="1.5"
+        android:strokeColor="#1565C0"
+        android:fillColor="@android:color/transparent" />
+</vector>

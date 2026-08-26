@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="60dp"
+    android:viewportWidth="40"
+    android:viewportHeight="60">
+    <!-- Small wave -->
+    <path
+        android:pathData="M8,25 C8,22 10,20 12,20 C14,20 16,22 16,25 C16,28 14,30 12,30 C10,30 8,28 8,25"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:fillColor="@android:color/transparent" />
+    <!-- Medium wave -->
+    <path
+        android:pathData="M18,20 C18,15 21,12 24,12 C27,12 30,15 30,20 C30,25 27,28 24,28 C21,28 18,25 18,20"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:fillColor="@android:color/transparent" />
+    <!-- Large wave -->
+    <path
+        android:pathData="M32,14 C32,7 36,2 40,2"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:fillColor="@android:color/transparent" />
+    <path
+        android:pathData="M32,30 C32,37 36,42 40,46"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00BFA5"
+        android:fillColor="@android:color/transparent" />
+</vector>
