@@ -1,5 +1,6 @@
 package com.example.mockup
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -133,12 +134,12 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val earText = if (selectedEar == "left") "Izquierdo" else "Derecho"
-            Toast.makeText(
-                this,
-                "Hola $name. Oído afectado: $earText",
-                Toast.LENGTH_LONG
-            ).show()
+            // Navigate to HomeActivity with user data
+            val intent = Intent(this, HomeActivity::class.java).apply {
+                putExtra("USER_NAME", name)
+                putExtra("SELECTED_EAR", selectedEar)
+            }
+            startActivity(intent)
         }
     }
 }

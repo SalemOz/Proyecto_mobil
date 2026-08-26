@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+    <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -32,4 +32,12 @@
     <!-- Misc -->
     <color name="dot_active">#FF1565C0</color>
     <color name="dot_inactive">#FFD6E4F0</color>
+
+    <!-- Home Screen -->
+    <color name="green_active">#FF4CAF50</color>
+    <color name="toggle_track_on">#FF1565C0</color>
+    <color name="toggle_track_off">#FFBDBDBD</color>
+    <color name="slider_track">#FFE0E0E0</color>
+    <color name="nav_inactive">#FF6B7B99</color>
+    <color name="nav_active">#FF1565C0</color>
 </resources>

@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">mockup</string>
+    <string name="app_name">Oído+</string>
+
+    <!-- Welcome Screen -->
+    <string name="welcome_title">Oído</string>
+    <string name="welcome_subtitle">Escucha tu entorno con confianza.</string>
+    <string name="welcome_description">Una herramienta que capta los sonidos de tu alrededor y los reproduce en tu oído sano, ayudándote a percibir lo que ocurre a tu lado afectado.</string>
+    <string name="welcome_button">COMENZAR</string>
+    <string name="welcome_footer">Tu entorno, más cerca.</string>
+
+    <!-- Home Screen -->
+    <string name="home_greeting">¡Hola, %s! 👋</string>
+    <string name="home_config_label">Tu configuración actual:</string>
+    <string name="home_ear_right">Oído derecho</string>
+    <string name="home_ear_left">Oído izquierdo</string>
+    <string name="home_amplification_title">Amplificación activa</string>
+    <string name="home_amplification_desc">Los sonidos del lado afectado se redirigen a tu oído sano.</string>
+    <string name="home_connection_title">Estado de la conexión</string>
+    <string name="home_mic_active">Micrófono activo</string>
+    <string name="home_volume_title">Volumen de salida</string>
+    <string name="home_volume_percent">%d%%</string>
+    <string name="home_ambient_title">Modo de ambiente</string>
+    <string name="home_ambient_desc">Ajusta cuánta conciencia del entorno deseas.</string>
+    <string name="home_ambient_low">Bajo</string>
+    <string name="home_ambient_mid">Medio</string>
+    <string name="home_ambient_high">Alto</string>
+    <string name="nav_home">Inicio</string>
+    <string name="nav_history">Historial</string>
+    <string name="nav_settings">Ajustes</string>
 </resources>
