@@ -3,6 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Brand colors from screenshot -->
+    <color name="brand_blue">#FF2F5FDE</color>
+    <color name="brand_teal">#FF1D9E75</color>
+    <color name="wave_gray">#FF8A94A6</color>
+
     <!-- Primary Blues -->
     <color name="primary_blue">#FF1565C0</color>
     <color name="primary_blue_dark">#FF0D47A1</color>
