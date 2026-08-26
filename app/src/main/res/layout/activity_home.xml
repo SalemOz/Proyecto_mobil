@@ -130,7 +130,7 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_ear_hero" />
+                    android:src="@drawable/ear_left" />
             </RelativeLayout>
 
             <!-- Amplification & Connection card -->

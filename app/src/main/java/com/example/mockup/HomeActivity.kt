@@ -101,10 +101,10 @@ class HomeActivity : AppCompatActivity() {
 
         if (selectedEar == "left") {
             tvEarType.text = getString(R.string.home_ear_left)
-            ivEarIllustration.setImageResource(R.drawable.ic_ear_hero)
+            ivEarIllustration.setImageResource(R.drawable.ear_left)
         } else {
             tvEarType.text = getString(R.string.home_ear_right)
-            ivEarIllustration.setImageResource(R.drawable.ic_ear_hero)
+            ivEarIllustration.setImageResource(R.drawable.ear_right)
         }
     }
 
