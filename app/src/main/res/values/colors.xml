@@ -38,13 +38,14 @@
     <color name="dot_active">#FF1565C0</color>
     <color name="dot_inactive">#FFD6E4F0</color>
 
-    <!-- Settings Screen (Dark theme) -->
-    <color name="settings_bg">#FF0F172A</color>
-    <color name="settings_card_bg">#FF1E293B</color>
-    <color name="settings_text_primary">#FFFFFFFF</color>
-    <color name="settings_text_secondary">#FF94A3B8</color>
-    <color name="settings_divider">#FF334155</color>
-    <color name="settings_logout">#FFEF4444</color>
+    <!-- Settings Screen (Light theme) -->
+    <color name="settings_bg">#FFFFFFFF</color>
+    <color name="settings_card_bg">#FFF6F8FC</color>
+    <color name="settings_text_primary">#FF17223B</color>
+    <color name="settings_text_secondary">#FF5F6B7A</color>
+    <color name="settings_text_muted">#FF7B8794</color>
+    <color name="settings_divider">#FFE3E8F0</color>
+    <color name="settings_logout">#FFE94B5F</color>
 
     <!-- Home Screen -->
     <color name="green_active">#FF4CAF50</color>

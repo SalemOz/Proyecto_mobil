@@ -3,7 +3,6 @@ package com.example.mockup
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.SeekBar
 import android.widget.TextView
 import android.content.Intent
 import android.widget.Toast
@@ -11,7 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.slider.Slider
 import com.google.android.material.switchmaterial.SwitchMaterial
+import kotlin.math.roundToInt
 
 class HomeActivity : AppCompatActivity() {
 
@@ -22,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var switchAmplification: SwitchMaterial
     private lateinit var tvMicStatus: TextView
     private lateinit var viewStatusDot: android.view.View
-    private lateinit var seekBarVolume: SeekBar
+    private lateinit var seekBarVolume: Slider
     private lateinit var tvVolumePercent: TextView
 
     // Ambient mode buttons
@@ -123,17 +124,14 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupVolumeSlider() {
-        tvVolumePercent.text = getString(R.string.home_volume_percent, seekBarVolume.progress)
+        tvVolumePercent.text = getString(R.string.home_volume_percent, seekBarVolume.value.roundToInt())
 
-        seekBarVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                tvVolumePercent.text = getString(R.string.home_volume_percent, progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        seekBarVolume.setLabelFormatter { value ->
+            getString(R.string.home_volume_percent, value.roundToInt())
+        }
+        seekBarVolume.addOnChangeListener { _, value, _ ->
+            tvVolumePercent.text = getString(R.string.home_volume_percent, value.roundToInt())
+        }
     }
 
     private fun setupAmbientMode() {

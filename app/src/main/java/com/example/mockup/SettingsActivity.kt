@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
@@ -47,6 +48,12 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_settings)
+        window.statusBarColor = getColor(R.color.settings_bg)
+        window.navigationBarColor = getColor(R.color.settings_bg)
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            isAppearanceLightStatusBars = true
+            isAppearanceLightNavigationBars = true
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -176,6 +183,12 @@ class SettingsActivity : AppCompatActivity() {
         navSettings.setOnClickListener {
             // Already on settings
         }
+
+        val inactiveColor = getColor(R.color.settings_text_muted)
+        ivNavHome.setColorFilter(inactiveColor)
+        ivNavHistory.setColorFilter(inactiveColor)
+        tvNavHome.setTextColor(inactiveColor)
+        tvNavHistory.setTextColor(inactiveColor)
 
         // Highlight active tab
         ivNavSettings.setColorFilter(getColor(R.color.brand_blue))
