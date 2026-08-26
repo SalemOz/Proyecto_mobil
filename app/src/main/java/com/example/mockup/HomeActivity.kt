@@ -42,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvNavSettings: TextView
 
     // State
-    private var userName: String = "Delia"
+    private var userName: String = "Usuario"
     private var selectedEar: String = "right"
     private var isAmplificationActive: Boolean = true
     private var selectedAmbientMode: String = "low"
@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Get data from intent
-        userName = intent.getStringExtra("USER_NAME") ?: "Delia"
+        userName = intent.getStringExtra("USER_NAME")?.trim().takeUnless { it.isNullOrEmpty() } ?: "Usuario"
         selectedEar = intent.getStringExtra("SELECTED_EAR") ?: "right"
 
         initViews()

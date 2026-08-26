@@ -273,14 +273,14 @@
 
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/iv_check_izquierdo"
+                    <RadioButton
+                        android:id="@+id/rb_oido_izquierdo"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="top|end"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_check"
-                        android:visibility="gone" />
+                        android:buttonTint="@color/primary_blue"
+                        android:contentDescription="Oído izquierdo"
+                        android:checked="false" />
                 </FrameLayout>
 
                 <!-- Right ear card (selected) -->
@@ -321,13 +321,14 @@
 
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/iv_check_derecho"
+                    <RadioButton
+                        android:id="@+id/rb_oido_derecho"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="top|end"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_check" />
+                        android:buttonTint="@color/primary_blue"
+                        android:contentDescription="Oído derecho"
+                        android:checked="true" />
 
                     <!-- Checkmark badge -->
 

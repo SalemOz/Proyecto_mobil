@@ -2,6 +2,7 @@ package com.example.mockup
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -39,7 +40,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var tvNavSettings: TextView
 
     // State
-    private var userName: String = "Della"
+    private var userName: String = "Usuario"
     private var selectedEar: String = "right"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // Get data from intent
-        userName = intent.getStringExtra("USER_NAME") ?: "Della"
+        userName = intent.getStringExtra("USER_NAME")?.trim().takeUnless { it.isNullOrEmpty() } ?: "Usuario"
         selectedEar = intent.getStringExtra("SELECTED_EAR") ?: "right"
 
         initViews()
@@ -107,30 +108,55 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         rowDefaultAmbient.setOnClickListener {
-            // TODO: Show ambient mode selector dialog
-            Toast.makeText(this, "Seleccionar modo de ambiente", Toast.LENGTH_SHORT).show()
+            val modes = arrayOf("Bajo", "Medio", "Alto")
+            AlertDialog.Builder(this)
+                .setTitle("Modo de ambiente")
+                .setSingleChoiceItems(modes, modes.indexOf(tvDefaultAmbientValue.text.toString())) { dialog, which ->
+                    tvDefaultAmbientValue.text = modes[which]
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         rowLanguage.setOnClickListener {
-            // TODO: Show language selector dialog
-            Toast.makeText(this, "Seleccionar idioma", Toast.LENGTH_SHORT).show()
+            AlertDialog.Builder(this)
+                .setTitle("Idioma")
+                .setSingleChoiceItems(arrayOf("Español"), 0) { dialog, _ ->
+                    tvLanguageValue.text = "Español"
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
     private fun setupSupportRows() {
         rowHelp.setOnClickListener {
-            // TODO: Navigate to help screen
-            Toast.makeText(this, "Ayuda y soporte - Próximamente", Toast.LENGTH_SHORT).show()
+            AlertDialog.Builder(this)
+                .setTitle("Ayuda y soporte")
+                .setMessage("Selecciona tu oído afectado y configura el volumen desde la pantalla de inicio.")
+                .setPositiveButton("Entendido", null)
+                .show()
         }
 
         rowAbout.setOnClickListener {
-            // TODO: Navigate to about screen
-            Toast.makeText(this, "Acerca de Oído+ - Próximamente", Toast.LENGTH_SHORT).show()
+            AlertDialog.Builder(this)
+                .setTitle("Acerca de Oído+")
+                .setMessage("Oído+\nVersión 1.0")
+                .setPositiveButton("Cerrar", null)
+                .show()
         }
 
         rowLogout.setOnClickListener {
-            // TODO: Show logout confirmation dialog
-            Toast.makeText(this, "Cerrar sesión - Próximamente", Toast.LENGTH_SHORT).show()
+            AlertDialog.Builder(this)
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Quieres volver a la pantalla inicial?")
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Cerrar sesión") { _, _ ->
+                    startActivity(Intent(this, MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                }
+                .show()
         }
     }
 

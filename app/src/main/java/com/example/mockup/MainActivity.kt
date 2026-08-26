@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import android.widget.RadioButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvOidoIzquierdo: TextView
     private lateinit var tvOidoDerecho: TextView
 
-    private lateinit var ivCheckDerecho: ImageView
-    private lateinit var ivCheckIzquierdo: ImageView
+    private lateinit var rbOidoDerecho: RadioButton
+    private lateinit var rbOidoIzquierdo: RadioButton
 
     private lateinit var etNombre: EditText
     private lateinit var btnContinuar: Button
@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
         tvOidoIzquierdo = findViewById(R.id.tv_oido_izquierdo)
         tvOidoDerecho = findViewById(R.id.tv_oido_derecho)
 
-        ivCheckDerecho = findViewById(R.id.iv_check_derecho)
-        ivCheckIzquierdo = findViewById(R.id.iv_check_izquierdo)
+        rbOidoDerecho = findViewById(R.id.rb_oido_derecho)
+        rbOidoIzquierdo = findViewById(R.id.rb_oido_izquierdo)
 
         etNombre = findViewById(R.id.et_nombre)
         btnContinuar = findViewById(R.id.btn_continuar)
@@ -74,6 +74,8 @@ class MainActivity : AppCompatActivity() {
         flOidoDerecho.setOnClickListener {
             selectEar("right")
         }
+        rbOidoIzquierdo.setOnClickListener { selectEar("left") }
+        rbOidoDerecho.setOnClickListener { selectEar("right") }
     }
 
     private fun selectEar(ear: String) {
@@ -84,30 +86,30 @@ class MainActivity : AppCompatActivity() {
             flOidoIzquierdo.setBackgroundResource(R.drawable.bg_ear_card_selected)
             ivOidoIzquierdo.setColorFilter(getColor(R.color.primary_blue))
             tvOidoIzquierdo.setTextColor(getColor(R.color.primary_blue))
-            ivCheckIzquierdo.visibility = android.view.View.VISIBLE
+            rbOidoIzquierdo.isChecked = true
 
             // Deselect right
             flOidoDerecho.setBackgroundResource(R.drawable.bg_ear_card)
             ivOidoDerecho.clearColorFilter()
             tvOidoDerecho.setTextColor(getColor(R.color.text_primary))
-            ivCheckDerecho.visibility = android.view.View.GONE
+            rbOidoDerecho.isChecked = false
         } else {
             // Select right
             flOidoDerecho.setBackgroundResource(R.drawable.bg_ear_card_selected)
             ivOidoDerecho.setColorFilter(getColor(R.color.primary_blue))
             tvOidoDerecho.setTextColor(getColor(R.color.primary_blue))
-            ivCheckDerecho.visibility = android.view.View.VISIBLE
+            rbOidoDerecho.isChecked = true
 
             // Deselect left
             flOidoIzquierdo.setBackgroundResource(R.drawable.bg_ear_card)
             ivOidoIzquierdo.clearColorFilter()
             tvOidoIzquierdo.setTextColor(getColor(R.color.text_primary))
-            ivCheckIzquierdo.visibility = android.view.View.GONE
+            rbOidoIzquierdo.isChecked = false
         }
     }
 
     private fun setupContinueButton() {
-        val nameRegex = "^[\\p{L}][\\p{L} '\\-]{0,49}$".toRegex()
+        val nameRegex = "^[\\p{L}][\\p{L} '\\-]{1,49}$".toRegex()
         val consecutiveRegex = "(.)\\1".toRegex()
         val reservedNames = listOf("admin", "test", "usuario", "user", "root", "prueba")
 
