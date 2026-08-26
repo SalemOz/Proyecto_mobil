@@ -27,4 +27,19 @@
     <string name="nav_home">Inicio</string>
     <string name="nav_history">Historial</string>
     <string name="nav_settings">Ajustes</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_affected_ear">Oído afectado: %s</string>
+    <string name="settings_ear_right">derecho</string>
+    <string name="settings_ear_left">izquierdo</string>
+    <string name="settings_preferences">Preferencias</string>
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="settings_default_ambient">Modo de ambiente por defecto</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_spanish">Español</string>
+    <string name="settings_support">Soporte</string>
+    <string name="settings_help">Ayuda y soporte</string>
+    <string name="settings_about">Acerca de Oído+</string>
+    <string name="settings_logout">Cerrar sesión</string>
 </resources>
