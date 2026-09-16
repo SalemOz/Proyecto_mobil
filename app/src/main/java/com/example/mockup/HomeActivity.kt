@@ -1,6 +1,9 @@
 package com.example.mockup
 
 import android.os.Bundle
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -46,12 +49,24 @@ class HomeActivity : AppCompatActivity() {
     private var userName: String = "Usuario"
     private var selectedEar: String = "right"
     private var isAmplificationActive: Boolean = true
+    private var wasAmplificationActive: Boolean = true
     private var selectedAmbientMode: String = "low"
+
+    // Sesión de uso en curso
+    private var horaInicioSesion: Date? = null
+    private var oidoSesionActual: String = "right"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+
+        // Recuperar sesión de uso pendiente al recrear la Activity (rotación, etc.)
+        if (savedInstanceState != null) {
+            horaInicioSesion = savedInstanceState.getLong("HORA_INICIO", -1L).takeIf { it >= 0 }
+                ?.let { Date(it) }
+            oidoSesionActual = savedInstanceState.getString("OIDO_SESION") ?: "right"
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -110,6 +125,34 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupAmplificationToggle() {
         switchAmplification.setOnCheckedChangeListener { _, isChecked ->
+            val cambioReal = isChecked != wasAmplificationActive
+            if (cambioReal) {
+                if (isChecked) {
+                    // Iniciar sesión de uso
+                    horaInicioSesion = Date()
+                    oidoSesionActual = selectedEar
+                } else {
+                    // Finalizar y guardar la sesión de uso
+                    horaInicioSesion?.let { inicio ->
+                        val formato = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                        val formatoHora = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                        val oido = if (oidoSesionActual == "left") {
+                            getString(R.string.home_ear_left)
+                        } else {
+                            getString(R.string.home_ear_right)
+                        }
+                        val sesion = SesionUso(
+                            fecha = formato.format(inicio),
+                            horaInicio = formatoHora.format(inicio),
+                            horaFin = formatoHora.format(Date()),
+                            oido = oido
+                        )
+                        HistorialPreferences(this).agregarSesion(sesion)
+                    }
+                    horaInicioSesion = null
+                }
+            }
+            wasAmplificationActive = isChecked
             isAmplificationActive = isChecked
             if (isChecked) {
                 switchAmplification.trackTintList =
@@ -191,7 +234,10 @@ class HomeActivity : AppCompatActivity() {
         }
         navHistory.setOnClickListener {
             selectNavItem("history")
-            Toast.makeText(this, "Historial - Próximamente", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, HistorialActivity::class.java)
+            intent.putExtra("USER_NAME", userName)
+            intent.putExtra("SELECTED_EAR", selectedEar)
+            startActivity(intent)
         }
         navSettings.setOnClickListener {
             selectNavItem("settings")
@@ -200,6 +246,12 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("SELECTED_EAR", selectedEar)
             startActivity(intent)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        horaInicioSesion?.let { outState.putLong("HORA_INICIO", it.time) }
+        outState.putString("OIDO_SESION", oidoSesionActual)
     }
 
     private fun selectNavItem(item: String) {

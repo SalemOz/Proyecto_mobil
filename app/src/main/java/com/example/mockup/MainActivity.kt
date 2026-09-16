@@ -43,6 +43,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Si ya hay sesión guardada, entrar directo a Home
+        val userPrefs = UserPreferences(this)
+        if (userPrefs.isLoggedIn()) {
+            val intent = Intent(this, HomeActivity::class.java).apply {
+                putExtra("USER_NAME", userPrefs.getUserName())
+                putExtra("SELECTED_EAR", userPrefs.getSelectedEar())
+            }
+            startActivity(intent)
+            finish()
+            return
+        }
+
         initViews()
         setupEarSelection()
         setupContinueButton()
@@ -136,12 +148,14 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Navigate to HomeActivity with user data
+            // Guardar sesión del usuario y entrar a Home
+            UserPreferences(this).guardarSesion(name, selectedEar)
             val intent = Intent(this, HomeActivity::class.java).apply {
                 putExtra("USER_NAME", name)
                 putExtra("SELECTED_EAR", selectedEar)
             }
             startActivity(intent)
+            finish()
         }
     }
 }

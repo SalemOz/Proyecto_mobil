@@ -29,6 +29,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- History Screen -->
+        <activity
+            android:name=".HistorialActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Settings Screen -->
         <activity
             android:name=".SettingsActivity"

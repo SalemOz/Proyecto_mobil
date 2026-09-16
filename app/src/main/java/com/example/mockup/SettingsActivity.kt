@@ -159,6 +159,8 @@ class SettingsActivity : AppCompatActivity() {
                 .setMessage("¿Quieres volver a la pantalla inicial?")
                 .setNegativeButton("Cancelar", null)
                 .setPositiveButton("Cerrar sesión") { _, _ ->
+                    // Borrar solo la sesión del usuario, el historial se conserva
+                    UserPreferences(this).cerrarSesion()
                     startActivity(Intent(this, MainActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     })
@@ -178,7 +180,12 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
         navHistory.setOnClickListener {
-            Toast.makeText(this, "Historial - Próximamente", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, HistorialActivity::class.java).apply {
+                putExtra("USER_NAME", userName)
+                putExtra("SELECTED_EAR", selectedEar)
+            }
+            startActivity(intent)
+            finish()
         }
         navSettings.setOnClickListener {
             // Already on settings
