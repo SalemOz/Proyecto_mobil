@@ -14,6 +14,12 @@ import kotlin.math.roundToInt
 class HomeActivity : BaseActivity() {
 
     // Views
+    // Clima
+    private lateinit var tvWeatherCondition: TextView
+    private lateinit var tvWeatherTemp: TextView
+    private lateinit var tvWeatherHumidity: TextView
+    private lateinit var tvWeatherWind: TextView
+
     private lateinit var tvGreeting: TextView
     private lateinit var tvEarType: TextView
     private lateinit var ivEarIllustration: ImageView
@@ -63,6 +69,7 @@ class HomeActivity : BaseActivity() {
         setupAmplificationToggle()
         setupVolumeSlider()
         setupAmbientMode()
+        setupWeather()
 
         bottomNav = BottomNav(this, BottomNav.INICIO, userName, selectedEar, raiz = true)
         bottomNav.instalar()
@@ -81,6 +88,11 @@ class HomeActivity : BaseActivity() {
         btnAmbientLow = findViewById(R.id.btn_ambient_low)
         btnAmbientMid = findViewById(R.id.btn_ambient_mid)
         btnAmbientHigh = findViewById(R.id.btn_ambient_high)
+
+        tvWeatherCondition = findViewById(R.id.tv_weather_condition)
+        tvWeatherTemp = findViewById(R.id.tv_weather_temp)
+        tvWeatherHumidity = findViewById(R.id.tv_weather_humidity)
+        tvWeatherWind = findViewById(R.id.tv_weather_wind)
     }
 
     private fun setupGreeting() {
@@ -155,6 +167,28 @@ class HomeActivity : BaseActivity() {
         btnAmbientLow.isSelected = mode == "low"
         btnAmbientMid.isSelected = mode == "medium"
         btnAmbientHigh.isSelected = mode == "high"
+    }
+
+    /**
+     * Pide el clima actual a Open-Meteo en un hilo secundario y actualiza la tarjeta.
+     * Si falla la conexión o el JSON, solo se muestra un mensaje: la app no se cierra.
+     */
+    private fun setupWeather() {
+        tvWeatherCondition.text = getString(R.string.weather_loading)
+
+        Thread {
+            val clima = WeatherApi.obtenerClima()
+            runOnUiThread {
+                if (clima == null) {
+                    tvWeatherCondition.text = getString(R.string.weather_error)
+                } else {
+                    tvWeatherCondition.text = getString(WeatherApi.descripcionClima(clima.codigoClima))
+                    tvWeatherTemp.text = getString(R.string.weather_temp, clima.temperatura.roundToInt())
+                    tvWeatherHumidity.text = getString(R.string.weather_humidity, clima.humedad)
+                    tvWeatherWind.text = getString(R.string.weather_wind, clima.viento.roundToInt())
+                }
+            }
+        }.start()
     }
 
     override fun onResume() {

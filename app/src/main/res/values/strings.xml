@@ -48,6 +48,28 @@
     <string name="home_ambient_mid">Medio</string>
     <string name="home_ambient_high">Alto</string>
 
+    <!-- =============================== Clima =============================== -->
+    <string name="weather_title">Clima actual</string>
+    <string name="weather_location">Neiva</string>
+    <string name="weather_loading">Cargando clima…</string>
+    <string name="weather_error">No se pudo cargar el clima</string>
+    <string name="weather_temp">%d°C</string>
+    <string name="weather_humidity">Humedad: %d%%</string>
+    <string name="weather_wind">Viento: %d km/h</string>
+    <string name="weather_clear">Despejado</string>
+    <string name="weather_partly_cloudy">Parcialmente nublado</string>
+    <string name="weather_overcast">Nublado</string>
+    <string name="weather_fog">Niebla</string>
+    <string name="weather_drizzle">Llovizna</string>
+    <string name="weather_rain">Lluvia</string>
+    <string name="weather_freezing_rain">Lluvia helada</string>
+    <string name="weather_snow">Nieve</string>
+    <string name="weather_showers">Chubascos</string>
+    <string name="weather_snow_showers">Chubascos de nieve</string>
+    <string name="weather_thunderstorm">Tormenta eléctrica</string>
+    <string name="weather_thunderstorm_hail">Tormenta con granizo</string>
+    <string name="weather_unknown">Clima no identificado</string>
+
     <!-- ======================== Navegación y barra ======================== -->
     <string name="nav_home">Inicio</string>
     <string name="nav_history">Historial</string>
