@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Logs de la JVM y caché de errores de Kotlin: nunca se versionan
+*.log
+.kotlin/

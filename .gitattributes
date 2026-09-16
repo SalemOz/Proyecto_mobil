@@ -1,0 +1,8 @@
+# Los archivos de texto se guardan y se extraen con LF, igual que pide .editorconfig.
+# Sin esto, core.autocrlf=true devolvería CRLF en cada checkout en Windows.
+* text=auto eol=lf
+
+# Binarios: no tocar.
+*.png binary
+*.webp binary
+*.jar binary

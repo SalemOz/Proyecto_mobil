@@ -5,7 +5,7 @@
         android:left="-40dp"
         android:bottom="-20dp">
         <shape android:shape="oval">
-            <solid android:color="#E3F0FC" />
+            <solid android:color="@color/bubble_blue_soft" />
             <size
                 android:width="180dp"
                 android:height="180dp" />
@@ -16,7 +16,7 @@
         android:right="-30dp"
         android:bottom="20dp">
         <shape android:shape="oval">
-            <solid android:color="#D6E8F7" />
+            <solid android:color="@color/bubble_blue_strong" />
             <size
                 android:width="100dp"
                 android:height="100dp" />

@@ -7,50 +7,50 @@
     <!-- Grid of dots pattern -->
     <path
         android:pathData="M10,10 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M30,10 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M50,10 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M70,10 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M10,30 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M30,30 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M50,30 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M70,30 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M10,50 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M30,50 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M50,50 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M70,50 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M10,70 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M30,70 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M50,70 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
     <path
         android:pathData="M70,70 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"
-        android:fillColor="#C8DCF0" />
+        android:fillColor="@color/dots_pattern" />
 </vector>

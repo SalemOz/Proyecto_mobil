@@ -5,43 +5,27 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.RadioButton
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var selectedEar: String = "right"
 
-    private lateinit var flOidoIzquierdo: FrameLayout
-    private lateinit var flOidoDerecho: FrameLayout
+    private lateinit var flEarLeft: FrameLayout
+    private lateinit var flEarRight: FrameLayout
 
-    private lateinit var ivOidoIzquierdo: ImageView
-    private lateinit var ivOidoDerecho: ImageView
+    private lateinit var rbEarLeft: RadioButton
+    private lateinit var rbEarRight: RadioButton
 
-    private lateinit var tvOidoIzquierdo: TextView
-    private lateinit var tvOidoDerecho: TextView
-
-    private lateinit var rbOidoDerecho: RadioButton
-    private lateinit var rbOidoIzquierdo: RadioButton
-
-    private lateinit var etNombre: EditText
-    private lateinit var btnContinuar: Button
+    private lateinit var etName: EditText
+    private lateinit var btnContinue: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        // La raíz es el ScrollView: sin su padding inferior la tarjeta del botón quedaría
+        // debajo de la barra de navegación del sistema.
+        prepararVentana(R.id.root, paddingInferiorEnRaiz = true)
 
         // Si ya hay sesión guardada, entrar directo a Home
         val userPrefs = UserPreferences(this)
@@ -61,63 +45,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        flEarLeft = findViewById(R.id.fl_ear_left)
+        flEarRight = findViewById(R.id.fl_ear_right)
 
-        flOidoIzquierdo = findViewById(R.id.fl_oido_izquierdo)
-        flOidoDerecho = findViewById(R.id.fl_oido_derecho)
+        rbEarLeft = findViewById(R.id.rb_ear_left)
+        rbEarRight = findViewById(R.id.rb_ear_right)
 
-        ivOidoIzquierdo = findViewById(R.id.iv_oido_izquierdo)
-        ivOidoDerecho = findViewById(R.id.iv_oido_derecho)
-
-        tvOidoIzquierdo = findViewById(R.id.tv_oido_izquierdo)
-        tvOidoDerecho = findViewById(R.id.tv_oido_derecho)
-
-        rbOidoDerecho = findViewById(R.id.rb_oido_derecho)
-        rbOidoIzquierdo = findViewById(R.id.rb_oido_izquierdo)
-
-        etNombre = findViewById(R.id.et_nombre)
-        btnContinuar = findViewById(R.id.btn_continuar)
+        etName = findViewById(R.id.et_name)
+        btnContinue = findViewById(R.id.btn_continue)
     }
 
     private fun setupEarSelection() {
-        flOidoIzquierdo.setOnClickListener {
-            selectEar("left")
-        }
+        flEarLeft.setOnClickListener { selectEar("left") }
+        flEarRight.setOnClickListener { selectEar("right") }
+        rbEarLeft.setOnClickListener { selectEar("left") }
+        rbEarRight.setOnClickListener { selectEar("right") }
 
-        flOidoDerecho.setOnClickListener {
-            selectEar("right")
-        }
-        rbOidoIzquierdo.setOnClickListener { selectEar("left") }
-        rbOidoDerecho.setOnClickListener { selectEar("right") }
+        selectEar(selectedEar)
     }
 
+    /**
+     * La tarjeta del oído elegido se queda seleccionada y el borde, el icono y la etiqueta se
+     * pintan solos con el selector de color. Antes había que reiniciar fondos, tintes y colores
+     * de seis vistas en cada toque.
+     */
     private fun selectEar(ear: String) {
         selectedEar = ear
+        val isLeft = ear == "left"
 
-        if (ear == "left") {
-            // Select left
-            flOidoIzquierdo.setBackgroundResource(R.drawable.bg_ear_card_selected)
-            ivOidoIzquierdo.setColorFilter(getColor(R.color.primary_blue))
-            tvOidoIzquierdo.setTextColor(getColor(R.color.primary_blue))
-            rbOidoIzquierdo.isChecked = true
-
-            // Deselect right
-            flOidoDerecho.setBackgroundResource(R.drawable.bg_ear_card)
-            ivOidoDerecho.clearColorFilter()
-            tvOidoDerecho.setTextColor(getColor(R.color.text_primary))
-            rbOidoDerecho.isChecked = false
-        } else {
-            // Select right
-            flOidoDerecho.setBackgroundResource(R.drawable.bg_ear_card_selected)
-            ivOidoDerecho.setColorFilter(getColor(R.color.primary_blue))
-            tvOidoDerecho.setTextColor(getColor(R.color.primary_blue))
-            rbOidoDerecho.isChecked = true
-
-            // Deselect left
-            flOidoIzquierdo.setBackgroundResource(R.drawable.bg_ear_card)
-            ivOidoIzquierdo.clearColorFilter()
-            tvOidoIzquierdo.setTextColor(getColor(R.color.text_primary))
-            rbOidoIzquierdo.isChecked = false
-        }
+        flEarLeft.isSelected = isLeft
+        flEarRight.isSelected = !isLeft
+        rbEarLeft.isChecked = isLeft
+        rbEarRight.isChecked = !isLeft
     }
 
     private fun setupContinueButton() {
@@ -125,26 +84,26 @@ class MainActivity : AppCompatActivity() {
         val consecutiveRegex = "(.)\\1".toRegex()
         val reservedNames = listOf("admin", "test", "usuario", "user", "root", "prueba")
 
-        btnContinuar.setOnClickListener {
-            val name = etNombre.text.toString().trim()
+        btnContinue.setOnClickListener {
+            val name = etName.text.toString().trim()
             if (name.isEmpty()) {
-                etNombre.error = "Por favor, ingresa tu nombre"
+                etName.error = getString(R.string.error_name_required)
                 return@setOnClickListener
             }
 
             if (!nameRegex.matches(name)) {
-                etNombre.error = "Nombre no válido. Usa solo letras, espacios, guiones o apóstrofes (2-50 caracteres)"
+                etName.error = getString(R.string.error_name_invalid)
                 return@setOnClickListener
             }
 
             val stripped = name.lowercase().replace(" ", "").replace("-", "").replace("'", "")
             if (consecutiveRegex.containsMatchIn(stripped)) {
-                etNombre.error = "El nombre no debe tener caracteres repetidos consecutivos"
+                etName.error = getString(R.string.error_name_repeated)
                 return@setOnClickListener
             }
 
             if (reservedNames.contains(name.lowercase())) {
-                etNombre.error = "Este nombre no está permitido"
+                etName.error = getString(R.string.error_name_reserved)
                 return@setOnClickListener
             }
 

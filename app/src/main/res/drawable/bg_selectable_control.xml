@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Fondo de un control seleccionable: ripple al pulsar + apariencia según el estado
+  "selected" del contenedor. Antes esto se cambiaba desde el código con
+  setBackgroundResource, así que tocar no daba ninguna respuesta visual.
+-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple">
+    <item android:drawable="@drawable/bg_selectable_control_state" />
+</ripple>

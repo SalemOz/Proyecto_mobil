@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Escala de espaciado y medidas compartidas.
+
+  Toda pantalla usa estos valores en lugar de números sueltos, de modo que los
+  márgenes y los radios sean iguales en Inicio, Historial y Ajustes.
+-->
+<resources>
+
+    <!-- Espaciado (múltiplos de 4dp, como la rejilla de Material) -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">12dp</dimen>
+    <dimen name="space_lg">16dp</dimen>
+    <dimen name="space_xl">20dp</dimen>
+    <dimen name="space_2xl">24dp</dimen>
+    <dimen name="space_3xl">32dp</dimen>
+
+    <!-- Márgenes de pantalla, iguales en las cuatro pantallas -->
+    <dimen name="screen_padding_horizontal">20dp</dimen>
+    <dimen name="screen_padding_vertical">16dp</dimen>
+
+    <!-- Superficies -->
+    <dimen name="card_radius">16dp</dimen>
+    <dimen name="card_stroke">1dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
+    <dimen name="control_radius">12dp</dimen>
+
+    <!-- Componentes -->
+    <dimen name="touch_target">48dp</dimen>
+    <dimen name="icon_sm">20dp</dimen>
+    <dimen name="icon_md">24dp</dimen>
+    <dimen name="icon_lg">48dp</dimen>
+    <dimen name="nav_icon_size">24dp</dimen>
+    <dimen name="nav_padding_bottom">12dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+
+</resources>

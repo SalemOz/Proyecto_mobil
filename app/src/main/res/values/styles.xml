@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Estilos compartidos: tipografía y componentes.
+
+  Antes cada layout repetía sus tamaños de letra, paddings y fondos a mano, lo que
+  hacía que las pantallas se fueran separando entre sí. Aquí está la única versión
+  de cada uno.
+
+  Nota: se usan paddingTop/Bottom/Start/End en lugar de paddingVertical/Horizontal
+  porque esos dos atributos solo existen desde API 26 y el mínimo del proyecto es 24.
+-->
+<resources>
+
+    <!--
+      AAPT interpreta el último punto de un nombre de estilo como herencia implícita, así que
+      "Text.Oido.ScreenTitle" buscaría un padre llamado "Text.Oido". Estos dos grupos vacíos
+      existen solo para que esa herencia se resuelva y los estilos queden agrupados por familia.
+    -->
+    <style name="Text.Oido" parent="" />
+    <style name="Widget.Oido" parent="" />
+
+    <!-- Heredan de Text.Oido (vacío) salvo donde se indique otro padre. -->
+
+    <style name="Text.Oido.ScreenTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Text.Oido.OnboardingTitle">
+        <item name="android:textSize">26sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="Text.Oido.CardTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Text.Oido.FieldLabel">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Text.Oido.Body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Text.Oido.BodySmall">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Text.Oido.SectionLabel">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_muted</item>
+    </style>
+
+    <style name="Text.Oido.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Text.Oido.RowTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Text.Oido.RowValue">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- ======================== Componentes ======================= -->
+
+    <!-- Tarjeta blanca con borde, la superficie de contenido de todas las pantallas. -->
+    <style name="Widget.Oido.Card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:padding">@dimen/card_padding</item>
+    </style>
+
+    <style name="Widget.Oido.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:background">@color/outline_variant</item>
+    </style>
+
+    <!-- Icono de la barra superior: 48dp de área táctil con un icono de 24dp. -->
+    <style name="Widget.Oido.TopBarIcon">
+        <item name="android:layout_width">@dimen/touch_target</item>
+        <item name="android:layout_height">@dimen/touch_target</item>
+        <item name="android:padding">@dimen/space_md</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <!-- ===================== Barra inferior ======================= -->
+
+    <style name="Widget.Oido.NavItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingTop">@dimen/space_sm</item>
+        <item name="android:paddingBottom">@dimen/space_xs</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <!--
+      Icono y etiqueta heredan el estado del contenedor (duplicateParentState), así que
+      marcar nav_home como "selected" pinta los dos a la vez. Antes eso se hacía a mano
+      desde BottomNav con setColorFilter/setTextColor.
+    -->
+    <style name="Widget.Oido.NavIcon">
+        <item name="android:layout_width">@dimen/nav_icon_size</item>
+        <item name="android:layout_height">@dimen/nav_icon_size</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="tint">@color/nav_item_color</item>
+    </style>
+
+    <style name="Widget.Oido.NavLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_xs</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/nav_item_color</item>
+    </style>
+
+    <!-- =================== Botones de ambiente ==================== -->
+
+    <style name="Widget.Oido.AmbientButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingTop">@dimen/space_md</item>
+        <item name="android:paddingBottom">@dimen/space_md</item>
+        <item name="android:background">@drawable/bg_selectable_control</item>
+    </style>
+
+    <style name="Widget.Oido.AmbientIcon">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="tint">@color/selectable_control_color</item>
+    </style>
+
+    <style name="Widget.Oido.AmbientLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_xs</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/selectable_control_color</item>
+    </style>
+
+    <!-- ===================== Filas de ajustes ===================== -->
+
+    <!--
+      Fila de ajustes. No es clicable por defecto: las filas que no hacen nada al pulsarlas
+      (por ejemplo la del interruptor de notificaciones) no deben anunciarse como pulsables
+      a un lector de pantalla. Las que sí tienen acción añaden clickable="true".
+    -->
+    <style name="Widget.Oido.SettingsRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="android:paddingTop">@dimen/space_md</item>
+        <item name="android:paddingBottom">@dimen/space_md</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Fila de ajustes que abre algo al pulsarla. -->
+    <style name="Widget.Oido.SettingsRow.Action">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Widget.Oido.SettingsIcon">
+        <item name="android:layout_width">@dimen/icon_sm</item>
+        <item name="android:layout_height">@dimen/icon_sm</item>
+        <item name="tint">@color/text_primary</item>
+    </style>
+
+    <style name="Widget.Oido.SettingsRowTitle" parent="Text.Oido.RowTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">@dimen/space_lg</item>
+    </style>
+
+    <style name="Widget.Oido.SettingsRowValue" parent="Text.Oido.RowValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Widget.Oido.SettingsChevron">
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_marginStart">@dimen/space_sm</item>
+        <item name="tint">@color/text_muted</item>
+    </style>
+
+</resources>

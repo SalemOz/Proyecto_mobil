@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tarjeta de contenido: blanca, borde suave y esquinas redondeadas. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface_card" />
+    <stroke
+        android:width="@dimen/card_stroke"
+        android:color="@color/outline" />
+    <corners android:radius="@dimen/card_radius" />
+</shape>

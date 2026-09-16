@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Color de una pestaña de la barra inferior según su estado. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/nav_active" android:state_selected="true" />
+    <item android:color="@color/nav_inactive" />
+</selector>

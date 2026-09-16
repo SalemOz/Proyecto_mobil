@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Barra de navegación inferior compartida.
+
+  Las tres pantallas la incluyen con <include layout="@layout/view_bottom_nav" />, así que
+  los ids nav_home / nav_history / nav_settings y su apariencia viven en un solo archivo en
+  lugar de repetirse (y desincronizarse) en tres.
+
+  El resaltado lo pone BottomNav marcando "selected" en el contenedor de la pestaña activa:
+  el icono y la etiqueta heredan ese estado con duplicateParentState, así que ya no hay que
+  pintar seis vistas a mano.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_nav_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_nav"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/space_xl"
+    android:paddingEnd="@dimen/space_xl"
+    android:paddingTop="@dimen/space_md"
+    android:paddingBottom="@dimen/nav_padding_bottom">
+
+    <View style="@style/Widget.Oido.Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_sm"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Inicio -->
+        <LinearLayout
+            android:id="@+id/nav_home"
+            style="@style/Widget.Oido.NavItem">
+
+            <ImageView
+                android:id="@+id/iv_nav_home"
+                style="@style/Widget.Oido.NavIcon"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_home" />
+
+            <TextView
+                android:id="@+id/tv_nav_home"
+                style="@style/Widget.Oido.NavLabel"
+                android:text="@string/nav_home" />
+        </LinearLayout>
+
+        <!-- Historial -->
+        <LinearLayout
+            android:id="@+id/nav_history"
+            style="@style/Widget.Oido.NavItem">
+
+            <ImageView
+                android:id="@+id/iv_nav_history"
+                style="@style/Widget.Oido.NavIcon"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_history" />
+
+            <TextView
+                android:id="@+id/tv_nav_history"
+                style="@style/Widget.Oido.NavLabel"
+                android:text="@string/nav_history" />
+        </LinearLayout>
+
+        <!-- Ajustes -->
+        <LinearLayout
+            android:id="@+id/nav_settings"
+            style="@style/Widget.Oido.NavItem">
+
+            <ImageView
+                android:id="@+id/iv_nav_settings"
+                style="@style/Widget.Oido.NavIcon"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_settings" />
+
+            <TextView
+                android:id="@+id/tv_nav_settings"
+                style="@style/Widget.Oido.NavLabel"
+                android:text="@string/nav_settings" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

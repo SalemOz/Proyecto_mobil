@@ -1,28 +1,20 @@
 package com.example.mockup
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
+import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class HistorialActivity : AppCompatActivity() {
+class HistorialActivity : BaseActivity() {
 
     // Views
-    private lateinit var rvSesiones: RecyclerView
+    private lateinit var rvSessions: RecyclerView
     private lateinit var llEmptyState: LinearLayout
     private lateinit var adapter: SesionesAdapter
 
     // Bottom nav
-    private lateinit var navHome: LinearLayout
-    private lateinit var navHistory: LinearLayout
-    private lateinit var navSettings: LinearLayout
+    private lateinit var bottomNav: BottomNav
 
     // State
     private var userName: String = "Usuario"
@@ -30,14 +22,9 @@ class HistorialActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_historial)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
-        }
+        prepararVentana(R.id.root)
+        conectarBarraSuperior()
 
         // Get data from intent
         userName = intent.getStringExtra("USER_NAME")?.trim().takeUnless { it.isNullOrEmpty() } ?: "Usuario"
@@ -45,51 +32,32 @@ class HistorialActivity : AppCompatActivity() {
 
         initViews()
         setupRecyclerView()
-        setupBottomNav()
+
+        bottomNav = BottomNav(this, BottomNav.HISTORIAL, userName, selectedEar)
+        bottomNav.instalar()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Igual que en las otras pantallas: el resaltado se reaplica al reanudar.
+        bottomNav.marcarActiva()
     }
 
     private fun initViews() {
-        rvSesiones = findViewById(R.id.rv_sesiones)
+        rvSessions = findViewById(R.id.rv_sessions)
         llEmptyState = findViewById(R.id.ll_empty_state)
-
-        navHome = findViewById(R.id.nav_home)
-        navHistory = findViewById(R.id.nav_history)
-        navSettings = findViewById(R.id.nav_settings)
     }
 
     private fun setupRecyclerView() {
-        rvSesiones.layoutManager = LinearLayoutManager(this)
+        rvSessions.layoutManager = LinearLayoutManager(this)
 
         val sesiones = HistorialPreferences(this).obtenerSesiones()
         adapter = SesionesAdapter(sesiones)
-        rvSesiones.adapter = adapter
+        rvSessions.adapter = adapter
 
-        if (sesiones.isEmpty()) {
-            llEmptyState.visibility = android.view.View.VISIBLE
-            rvSesiones.visibility = android.view.View.GONE
-        }
-    }
-
-    private fun setupBottomNav() {
-        navHome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java).apply {
-                putExtra("USER_NAME", userName)
-                putExtra("SELECTED_EAR", selectedEar)
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
-            startActivity(intent)
-            finish()
-        }
-        navHistory.setOnClickListener {
-            // Already on history
-        }
-        navSettings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java).apply {
-                putExtra("USER_NAME", userName)
-                putExtra("SELECTED_EAR", selectedEar)
-            }
-            startActivity(intent)
-            finish()
-        }
+        // La lista y el estado vacío son excluyentes.
+        val haySesiones = sesiones.isNotEmpty()
+        llEmptyState.visibility = if (haySesiones) View.GONE else View.VISIBLE
+        rvSessions.visibility = if (haySesiones) View.VISIBLE else View.GONE
     }
 }

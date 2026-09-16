@@ -1,10 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.Mockup" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_blue</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="android:statusBarColor">@color/bg_light_blue</item>
-        <item name="android:windowLightStatusBar">true</item>
+
+    <!--
+      La app define su propia paleta clara en values/colors.xml, así que el tema base
+      es Light y no DayNight: si el móvil está en modo oscuro, los diálogos, switches
+      y sliders de Material deben seguir en claro igual que las pantallas.
+    -->
+    <style name="Base.Theme.Mockup" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorOnPrimary">@color/text_on_brand</item>
+        <item name="colorPrimaryContainer">@color/brand_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/brand_primary_dark</item>
+        <item name="colorSecondary">@color/brand_accent</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="colorOutline">@color/outline</item>
+        <item name="colorError">@color/danger</item>
+        <!-- Radios, casillas y demás controles activados (p. ej. el diálogo de ambiente). -->
+        <item name="colorControlActivated">@color/brand_primary</item>
+        <item name="colorControlNormal">@color/text_muted</item>
+        <item name="android:colorBackground">@color/surface_screen</item>
+        <!-- La barra inferior de cada pantalla ya reserva su propio inset. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="Theme.Mockup" parent="Base.Theme.Mockup" />
+
 </resources>

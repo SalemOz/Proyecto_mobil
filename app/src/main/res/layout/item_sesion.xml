@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_home_card"
+    android:layout_marginBottom="@dimen/space_sm"
+    android:background="@drawable/bg_card"
+    android:baselineAligned="false"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="@dimen/space_lg">
 
     <FrameLayout
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:background="@drawable/bg_ear_card">
+        android:background="@drawable/bg_chip"
+        android:importantForAccessibility="no">
 
         <ImageView
             android:layout_width="22dp"
@@ -21,7 +23,7 @@
             android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_ear_small"
-            app:tint="@color/primary_blue" />
+            app:tint="@color/brand_primary" />
     </FrameLayout>
 
     <LinearLayout
@@ -32,30 +34,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_sesion_fecha"
+            android:id="@+id/tv_session_date"
+            style="@style/Text.Oido.CardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/text_primary"
             android:textSize="15sp"
             tools:text="16/09/2026" />
 
         <TextView
-            android:id="@+id/tv_sesion_horario"
+            android:id="@+id/tv_session_time"
+            style="@style/Text.Oido.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp"
             tools:text="Inicio: 10:25 AM  •  Fin: 11:10 AM" />
 
         <TextView
-            android:id="@+id/tv_sesion_oido"
+            android:id="@+id/tv_session_ear"
+            style="@style/Text.Oido.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp"
             tools:text="Oído derecho" />
     </LinearLayout>
+
 </LinearLayout>

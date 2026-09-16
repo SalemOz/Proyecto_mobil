@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/primary_blue" />
-    <corners android:radius="28dp" />
-</shape>
+<!-- Botón principal del onboarding, con ripple sobre el azul de marca. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_on_brand">
+    <item android:drawable="@drawable/bg_onboarding_button_shape" />
+</ripple>

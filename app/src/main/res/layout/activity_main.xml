@@ -2,393 +2,385 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_light_blue"
     android:fillViewport="true"
     android:overScrollMode="never"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="32dp">
+        android:paddingBottom="@dimen/space_3xl">
 
-        <!-- Step indicator: 1/2 -->
-
-        <!-- Dots decoration (top right area) -->
         <ImageView
-            android:id="@+id/iv_patron_puntos"
+            android:id="@+id/iv_dots_pattern"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="44dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/space_lg"
             android:alpha="0.5"
+            android:contentDescription="@null"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_dots_pattern"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Profile avatar container -->
+        <!-- Avatar + botón para cambiarlo -->
         <FrameLayout
-            android:id="@+id/fl_perfil"
+            android:id="@+id/fl_profile"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginTop="64dp"
+            android:importantForAccessibility="no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Circle background -->
             <ImageView
-                android:id="@+id/iv_fondo_avatar"
+                android:id="@+id/iv_profile_bg"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
+                android:contentDescription="@null"
                 android:importantForAccessibility="no"
                 android:src="@drawable/bg_profile_circle" />
 
-            <!-- Person icon -->
             <ImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:contentDescription="@null"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_profile_person" />
 
-            <!-- Edit pencil badge -->
             <FrameLayout
-                android:id="@+id/fl_editar_avatar"
+                android:id="@+id/fl_edit_avatar"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:layout_gravity="bottom|end">
+                android:layout_gravity="bottom|end"
+                android:importantForAccessibility="no">
 
                 <ImageView
-                    android:id="@+id/iv_fondo_editar"
+                    android:id="@+id/iv_edit_avatar_bg"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:src="@drawable/bg_edit_circle" />
 
                 <ImageView
-                    android:id="@+id/iv_editar_avatar"
-                    android:layout_width="16dp"
+                    android:id="@+id/iv_edit_avatar"
+                    android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
-                    android:src="@android:drawable/ic_menu_edit" />
+                    android:src="@drawable/ic_edit_pencil" />
             </FrameLayout>
         </FrameLayout>
 
-        <!-- Title -->
         <TextView
-            android:id="@+id/tv_titulo"
+            android:id="@+id/tv_onboarding_title"
+            style="@style/Text.Oido.OnboardingTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:letterSpacing="-0.01"
-            android:text="Cuéntanos sobre ti"
-            android:textColor="@color/text_primary"
-            android:textSize="26sp"
+            android:layout_marginStart="@dimen/space_3xl"
+            android:layout_marginTop="@dimen/space_2xl"
+            android:layout_marginEnd="@dimen/space_3xl"
+            android:text="@string/onboarding_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fl_perfil" />
+            app:layout_constraintTop_toBottomOf="@id/fl_profile" />
 
-        <!-- Subtitle -->
         <TextView
-            android:id="@+id/tv_subtitulo"
+            android:id="@+id/tv_onboarding_subtitle"
+            style="@style/Text.Oido.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/space_sm"
             android:layout_marginEnd="40dp"
             android:gravity="center"
             android:lineSpacingExtra="3dp"
-            android:text="Para personalizar tu experiencia,\nnecesitamos conocerte un poco."
-            android:textColor="@color/text_secondary"
+            android:text="@string/onboarding_subtitle"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_titulo" />
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_title" />
 
-        <!-- Section: Name -->
+        <!-- Sección: nombre -->
         <LinearLayout
-            android:id="@+id/ll_seccion_nombre"
+            android:id="@+id/ll_name_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="@dimen/space_2xl"
+            android:layout_marginTop="@dimen/space_3xl"
+            android:layout_marginEnd="@dimen/space_2xl"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_subtitulo">
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_subtitle">
 
-            <!-- Label -->
             <LinearLayout
-                android:id="@+id/ll_label_nombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iv_icono_nombre"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/space_sm"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/brand_primary" />
 
                 <TextView
-                    android:id="@+id/tv_pregunta_nombre"
+                    android:id="@+id/tv_name_question"
+                    style="@style/Text.Oido.FieldLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="¿Cómo te llamas?"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:text="@string/onboarding_name_question" />
             </LinearLayout>
 
-            <!-- Input field -->
             <FrameLayout
-                android:id="@+id/ll_poner_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_name_input">
+                android:layout_marginTop="@dimen/space_md"
+                android:background="@drawable/bg_control_outline">
 
                 <ImageView
-                    android:id="@+id/iv_icono_nombre1"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/space_lg"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/text_muted" />
 
                 <EditText
-                    android:id="@+id/et_nombre"
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="44dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="@dimen/space_lg"
                     android:background="@null"
-                    android:fontFamily="sans-serif"
-                    android:hint="Escribe tu nombre..."
+                    android:hint="@string/onboarding_name_hint"
+                    android:imeOptions="actionDone"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLength="50"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_hint"
                     android:textSize="15sp" />
             </FrameLayout>
         </LinearLayout>
 
-        <!-- Section: Affected ear -->
+        <!-- Sección: oído afectado -->
         <LinearLayout
-            android:id="@+id/ll_seccion_oido"
+            android:id="@+id/ll_ear_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginStart="@dimen/space_2xl"
             android:layout_marginTop="28dp"
+            android:layout_marginEnd="@dimen/space_2xl"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_seccion_nombre">
+            app:layout_constraintTop_toBottomOf="@id/ll_name_section">
 
-            <!-- Label -->
             <LinearLayout
-                android:id="@+id/ll_pregunta_oido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iv_icono_oido"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/space_sm"
+                    android:contentDescription="@null"
                     android:importantForAccessibility="no"
                     android:src="@drawable/ear_sound" />
 
                 <TextView
-                    android:id="@+id/tv_pregunta_oido"
+                    android:id="@+id/tv_ear_question"
+                    style="@style/Text.Oido.FieldLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="¿Qué oído está afectado?"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:text="@string/onboarding_ear_question" />
             </LinearLayout>
 
-            <!-- Ear selection cards -->
             <LinearLayout
-                android:id="@+id/ll_opciones_oido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/space_md"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
-                <!-- Left ear card (unselected) -->
+                <!-- Oído izquierdo -->
                 <FrameLayout
-                    android:id="@+id/fl_oido_izquierdo"
+                    android:id="@+id/fl_ear_left"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/space_sm"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_ear_card"
+                    android:background="@drawable/bg_selectable_control"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="16dp">
+                    android:padding="@dimen/space_lg">
 
                     <LinearLayout
-                        android:id="@+id/ll_contenido_izquierdo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:duplicateParentState="true"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/iv_oido_izquierdo"
+                            android:id="@+id/iv_ear_left"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:adjustViewBounds="true"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ear_left" />
 
                         <TextView
-                            android:id="@+id/tv_oido_izquierdo"
+                            android:id="@+id/tv_ear_left"
+                            style="@style/Text.Oido.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/space_sm"
+                            android:duplicateParentState="true"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Izquierdo"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp" />
-
+                            android:text="@string/onboarding_ear_left"
+                            android:textColor="@color/selectable_control_color" />
                     </LinearLayout>
 
                     <RadioButton
-                        android:id="@+id/rb_oido_izquierdo"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/rb_ear_left"
+                        android:layout_width="@dimen/icon_md"
+                        android:layout_height="@dimen/icon_md"
                         android:layout_gravity="top|end"
-                        android:buttonTint="@color/primary_blue"
-                        android:contentDescription="Oído izquierdo"
-                        android:checked="false" />
+                        android:buttonTint="@color/selectable_control_color"
+                        android:checked="false"
+                        android:contentDescription="@string/onboarding_ear_left_description"
+                        android:duplicateParentState="true" />
                 </FrameLayout>
 
-                <!-- Right ear card (selected) -->
+                <!-- Oído derecho (seleccionado por defecto) -->
                 <FrameLayout
-                    android:id="@+id/fl_oido_derecho"
+                    android:id="@+id/fl_ear_right"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/space_sm"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_ear_card_selected"
+                    android:background="@drawable/bg_selectable_control"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="16dp">
+                    android:padding="@dimen/space_lg">
 
                     <LinearLayout
-                        android:id="@+id/ll_contenido_derecho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:duplicateParentState="true"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/iv_oido_derecho"
+                            android:id="@+id/iv_ear_right"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
+                            android:contentDescription="@null"
+                            android:duplicateParentState="true"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ear_right" />
 
                         <TextView
-                            android:id="@+id/tv_oido_derecho"
+                            android:id="@+id/tv_ear_right"
+                            style="@style/Text.Oido.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/space_sm"
+                            android:duplicateParentState="true"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Derecho"
-                            android:textColor="@color/primary_blue"
-                            android:textSize="14sp" />
-
+                            android:text="@string/onboarding_ear_right"
+                            android:textColor="@color/selectable_control_color" />
                     </LinearLayout>
 
                     <RadioButton
-                        android:id="@+id/rb_oido_derecho"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:id="@+id/rb_ear_right"
+                        android:layout_width="@dimen/icon_md"
+                        android:layout_height="@dimen/icon_md"
                         android:layout_gravity="top|end"
-                        android:buttonTint="@color/primary_blue"
-                        android:contentDescription="Oído derecho"
-                        android:checked="true" />
-
-                    <!-- Checkmark badge -->
-
+                        android:buttonTint="@color/selectable_control_color"
+                        android:checked="true"
+                        android:contentDescription="@string/onboarding_ear_right_description"
+                        android:duplicateParentState="true" />
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Privacy notice -->
+        <!-- Aviso de privacidad -->
         <LinearLayout
-            android:id="@+id/ll_aviso_privacidad"
+            android:id="@+id/ll_privacy_notice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="@dimen/space_2xl"
+            android:layout_marginEnd="40dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_seccion_oido">
+            app:layout_constraintTop_toBottomOf="@id/ll_ear_section">
 
             <ImageView
-                android:id="@+id/iv_candado_privacidad"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="6dp"
+                android:contentDescription="@null"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_lock" />
+                android:src="@drawable/ic_lock"
+                app:tint="@color/text_muted" />
 
             <TextView
-                android:id="@+id/tv_aviso_privacidad"
+                android:id="@+id/tv_privacy_notice"
+                style="@style/Text.Oido.BodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:lineSpacingExtra="2dp"
-                android:text="Solo solicitamos la información necesaria\npara configurar tu experiencia."
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:text="@string/onboarding_privacy_notice" />
         </LinearLayout>
 
-        <!-- Continue button -->
         <Button
-            android:id="@+id/btn_continuar"
+            android:id="@+id/btn_continue"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginStart="@dimen/space_2xl"
             android:layout_marginTop="28dp"
+            android:layout_marginEnd="@dimen/space_2xl"
             android:background="@drawable/bg_onboarding_button"
             android:drawableEnd="@drawable/ic_arrow_forward"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/space_sm"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.08"
             android:stateListAnimator="@null"
-            android:text="CONTINUAR"
+            android:text="@string/onboarding_continue"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/text_on_brand"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_aviso_privacidad" />
+            app:layout_constraintTop_toBottomOf="@id/ll_privacy_notice" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

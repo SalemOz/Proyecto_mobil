@@ -1,54 +1,39 @@
 package com.example.mockup
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.google.android.material.slider.Slider
+import com.google.android.material.switchmaterial.SwitchMaterial
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.content.Intent
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.slider.Slider
-import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlin.math.roundToInt
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     // Views
     private lateinit var tvGreeting: TextView
     private lateinit var tvEarType: TextView
     private lateinit var ivEarIllustration: ImageView
     private lateinit var switchAmplification: SwitchMaterial
-    private lateinit var tvMicStatus: TextView
-    private lateinit var viewStatusDot: android.view.View
-    private lateinit var seekBarVolume: Slider
+    private lateinit var sliderVolume: Slider
     private lateinit var tvVolumePercent: TextView
+    private lateinit var llVolumeSection: View
+    private lateinit var llAmbientSection: View
 
-    // Ambient mode buttons
-    private lateinit var btnAmbientLow: LinearLayout
-    private lateinit var btnAmbientMid: LinearLayout
-    private lateinit var btnAmbientHigh: LinearLayout
+    // Modo de ambiente
+    private lateinit var btnAmbientLow: View
+    private lateinit var btnAmbientMid: View
+    private lateinit var btnAmbientHigh: View
 
     // Bottom nav
-    private lateinit var navHome: LinearLayout
-    private lateinit var navHistory: LinearLayout
-    private lateinit var navSettings: LinearLayout
-    private lateinit var ivNavHome: ImageView
-    private lateinit var ivNavHistory: ImageView
-    private lateinit var ivNavSettings: ImageView
-    private lateinit var tvNavHome: TextView
-    private lateinit var tvNavHistory: TextView
-    private lateinit var tvNavSettings: TextView
+    private lateinit var bottomNav: BottomNav
 
     // State
     private var userName: String = "Usuario"
     private var selectedEar: String = "right"
-    private var isAmplificationActive: Boolean = true
     private var wasAmplificationActive: Boolean = true
     private var selectedAmbientMode: String = "low"
 
@@ -58,20 +43,15 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+        prepararVentana(R.id.root)
+        conectarBarraSuperior()
 
         // Recuperar sesión de uso pendiente al recrear la Activity (rotación, etc.)
         if (savedInstanceState != null) {
             horaInicioSesion = savedInstanceState.getLong("HORA_INICIO", -1L).takeIf { it >= 0 }
                 ?.let { Date(it) }
             oidoSesionActual = savedInstanceState.getString("OIDO_SESION") ?: "right"
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
         }
 
         // Get data from intent
@@ -83,7 +63,9 @@ class HomeActivity : AppCompatActivity() {
         setupAmplificationToggle()
         setupVolumeSlider()
         setupAmbientMode()
-        setupBottomNav()
+
+        bottomNav = BottomNav(this, BottomNav.INICIO, userName, selectedEar, raiz = true)
+        bottomNav.instalar()
     }
 
     private fun initViews() {
@@ -91,24 +73,14 @@ class HomeActivity : AppCompatActivity() {
         tvEarType = findViewById(R.id.tv_ear_type)
         ivEarIllustration = findViewById(R.id.iv_ear_illustration)
         switchAmplification = findViewById(R.id.switch_amplification)
-        tvMicStatus = findViewById(R.id.tv_mic_status)
-        viewStatusDot = findViewById(R.id.view_status_dot)
-        seekBarVolume = findViewById(R.id.seekbar_volume)
+        sliderVolume = findViewById(R.id.slider_volume)
         tvVolumePercent = findViewById(R.id.tv_volume_percent)
+        llVolumeSection = findViewById(R.id.ll_volume_section)
+        llAmbientSection = findViewById(R.id.ll_ambient_section)
 
         btnAmbientLow = findViewById(R.id.btn_ambient_low)
         btnAmbientMid = findViewById(R.id.btn_ambient_mid)
         btnAmbientHigh = findViewById(R.id.btn_ambient_high)
-
-        navHome = findViewById(R.id.nav_home)
-        navHistory = findViewById(R.id.nav_history)
-        navSettings = findViewById(R.id.nav_settings)
-        ivNavHome = findViewById(R.id.iv_nav_home)
-        ivNavHistory = findViewById(R.id.iv_nav_history)
-        ivNavSettings = findViewById(R.id.iv_nav_settings)
-        tvNavHome = findViewById(R.id.tv_nav_home)
-        tvNavHistory = findViewById(R.id.tv_nav_history)
-        tvNavSettings = findViewById(R.id.tv_nav_settings)
     }
 
     private fun setupGreeting() {
@@ -124,128 +96,77 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupAmplificationToggle() {
+        aplicarEstadoAmplificacion(switchAmplification.isChecked)
+
         switchAmplification.setOnCheckedChangeListener { _, isChecked ->
             val cambioReal = isChecked != wasAmplificationActive
             if (cambioReal) {
                 if (isChecked) {
                     // Iniciar sesión de uso
-                    horaInicioSesion = Date()
-                    oidoSesionActual = selectedEar
+                    iniciarSesionUso()
                 } else {
                     // Finalizar y guardar la sesión de uso
-                    horaInicioSesion?.let { inicio ->
-                        val formato = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-                        val formatoHora = SimpleDateFormat("hh:mm a", Locale.getDefault())
-                        val oido = if (oidoSesionActual == "left") {
-                            getString(R.string.home_ear_left)
-                        } else {
-                            getString(R.string.home_ear_right)
-                        }
-                        val sesion = SesionUso(
-                            fecha = formato.format(inicio),
-                            horaInicio = formatoHora.format(inicio),
-                            horaFin = formatoHora.format(Date()),
-                            oido = oido
-                        )
-                        HistorialPreferences(this).agregarSesion(sesion)
-                    }
-                    horaInicioSesion = null
+                    finalizarSesionUso()
                 }
             }
             wasAmplificationActive = isChecked
-            isAmplificationActive = isChecked
-            if (isChecked) {
-                switchAmplification.trackTintList =
-                    android.content.res.ColorStateList.valueOf(getColor(R.color.toggle_track_on))
-                Toast.makeText(this, "Amplificación activada", Toast.LENGTH_SHORT).show()
-            } else {
-                switchAmplification.trackTintList =
-                    android.content.res.ColorStateList.valueOf(getColor(R.color.toggle_track_off))
-                Toast.makeText(this, "Amplificación desactivada", Toast.LENGTH_SHORT).show()
-            }
+            aplicarEstadoAmplificacion(isChecked)
+            mostrarMensaje(
+                if (isChecked) R.string.home_amplification_on else R.string.home_amplification_off
+            )
         }
     }
 
-    private fun setupVolumeSlider() {
-        tvVolumePercent.text = getString(R.string.home_volume_percent, seekBarVolume.value.roundToInt())
+    /**
+     * Con la amplificación apagada, el volumen y el modo de ambiente no se aplican: se atenúan
+     * para que se note. Siguen siendo utilizables, porque el usuario puede dejarlos preparados.
+     */
+    private fun aplicarEstadoAmplificacion(activa: Boolean) {
+        val alfa = if (activa) 1f else ALFA_SECCION_INACTIVA
+        llVolumeSection.alpha = alfa
+        llAmbientSection.alpha = alfa
+    }
 
-        seekBarVolume.setLabelFormatter { value ->
+    private fun setupVolumeSlider() {
+        tvVolumePercent.text = getString(R.string.home_volume_percent, sliderVolume.value.roundToInt())
+
+        sliderVolume.setLabelFormatter { value ->
             getString(R.string.home_volume_percent, value.roundToInt())
         }
-        seekBarVolume.addOnChangeListener { _, value, _ ->
+        sliderVolume.addOnChangeListener { _, value, _ ->
             tvVolumePercent.text = getString(R.string.home_volume_percent, value.roundToInt())
         }
     }
 
     private fun setupAmbientMode() {
-        selectAmbientMode("low")
-
         btnAmbientLow.setOnClickListener { selectAmbientMode("low") }
         btnAmbientMid.setOnClickListener { selectAmbientMode("medium") }
         btnAmbientHigh.setOnClickListener { selectAmbientMode("high") }
+        selectAmbientMode(selectedAmbientMode)
     }
 
+    /**
+     * El botón activo se marca como seleccionado y el icono y la etiqueta se pintan solos con el
+     * selector de color. Antes había que reiniciar fondos, colores de texto y tintes de los tres
+     * botones (y sus hijos) a mano.
+     */
     private fun selectAmbientMode(mode: String) {
         selectedAmbientMode = mode
-
-        // Reset all buttons
-        btnAmbientLow.setBackgroundResource(R.drawable.bg_ambient_button)
-        btnAmbientMid.setBackgroundResource(R.drawable.bg_ambient_button)
-        btnAmbientHigh.setBackgroundResource(R.drawable.bg_ambient_button)
-
-        // Reset text colors
-        (btnAmbientLow.getChildAt(1) as TextView).setTextColor(getColor(R.color.text_secondary))
-        (btnAmbientMid.getChildAt(1) as TextView).setTextColor(getColor(R.color.text_secondary))
-        (btnAmbientHigh.getChildAt(1) as TextView).setTextColor(getColor(R.color.text_secondary))
-
-        // Update icon tints
-        updateAmbientIconTint(btnAmbientLow, R.color.text_secondary)
-        updateAmbientIconTint(btnAmbientMid, R.color.text_secondary)
-        updateAmbientIconTint(btnAmbientHigh, R.color.text_secondary)
-
-        // Select the active one
-        when (mode) {
-            "low" -> {
-                btnAmbientLow.setBackgroundResource(R.drawable.bg_ambient_button_selected)
-                (btnAmbientLow.getChildAt(1) as TextView).setTextColor(getColor(R.color.brand_blue))
-                updateAmbientIconTint(btnAmbientLow, R.color.brand_blue)
-            }
-            "medium" -> {
-                btnAmbientMid.setBackgroundResource(R.drawable.bg_ambient_button_selected)
-                (btnAmbientMid.getChildAt(1) as TextView).setTextColor(getColor(R.color.brand_blue))
-                updateAmbientIconTint(btnAmbientMid, R.color.brand_blue)
-            }
-            "high" -> {
-                btnAmbientHigh.setBackgroundResource(R.drawable.bg_ambient_button_selected)
-                (btnAmbientHigh.getChildAt(1) as TextView).setTextColor(getColor(R.color.brand_blue))
-                updateAmbientIconTint(btnAmbientHigh, R.color.brand_blue)
-            }
-        }
+        btnAmbientLow.isSelected = mode == "low"
+        btnAmbientMid.isSelected = mode == "medium"
+        btnAmbientHigh.isSelected = mode == "high"
     }
 
-    private fun updateAmbientIconTint(button: LinearLayout, colorRes: Int) {
-        val icon = button.getChildAt(0) as? ImageView
-        icon?.setColorFilter(getColor(colorRes))
-    }
-
-    private fun setupBottomNav() {
-        navHome.setOnClickListener {
-            selectNavItem("home")
+    override fun onResume() {
+        super.onResume()
+        // La amplificación puede estar activa sin que el usuario haya tocado el switch
+        // (estado por defecto o restaurado al recrear la Activity): en ese caso la sesión
+        // de uso empieza ahora, para que no se pierda el primer periodo de uso.
+        if (switchAmplification.isChecked && horaInicioSesion == null) {
+            iniciarSesionUso()
         }
-        navHistory.setOnClickListener {
-            selectNavItem("history")
-            val intent = Intent(this, HistorialActivity::class.java)
-            intent.putExtra("USER_NAME", userName)
-            intent.putExtra("SELECTED_EAR", selectedEar)
-            startActivity(intent)
-        }
-        navSettings.setOnClickListener {
-            selectNavItem("settings")
-            val intent = Intent(this, SettingsActivity::class.java)
-            intent.putExtra("USER_NAME", userName)
-            intent.putExtra("SELECTED_EAR", selectedEar)
-            startActivity(intent)
-        }
+        // Inicio se reutiliza al volver de otra pantalla, así que el resaltado se reaplica aquí.
+        bottomNav.marcarActiva()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -254,36 +175,43 @@ class HomeActivity : AppCompatActivity() {
         outState.putString("OIDO_SESION", oidoSesionActual)
     }
 
-    private fun selectNavItem(item: String) {
-        // Reset all nav items
-        ivNavHome.setImageResource(R.drawable.ic_home)
-        ivNavHome.clearColorFilter()
-        ivNavHistory.setImageResource(R.drawable.ic_history)
-        ivNavHistory.clearColorFilter()
-        ivNavSettings.setImageResource(R.drawable.ic_settings)
-        ivNavSettings.clearColorFilter()
-
-        tvNavHome.setTextColor(getColor(R.color.nav_inactive))
-        tvNavHistory.setTextColor(getColor(R.color.nav_inactive))
-        tvNavSettings.setTextColor(getColor(R.color.nav_inactive))
-
-        // Select active item
-        when (item) {
-            "home" -> {
-                ivNavHome.setImageResource(R.drawable.ic_home)
-                ivNavHome.setColorFilter(getColor(R.color.nav_active))
-                tvNavHome.setTextColor(getColor(R.color.nav_active))
-            }
-            "history" -> {
-                ivNavHistory.setImageResource(R.drawable.ic_history)
-                ivNavHistory.setColorFilter(getColor(R.color.nav_active))
-                tvNavHistory.setTextColor(getColor(R.color.nav_active))
-            }
-            "settings" -> {
-                ivNavSettings.setImageResource(R.drawable.ic_settings)
-                ivNavSettings.setColorFilter(getColor(R.color.nav_active))
-                tvNavSettings.setTextColor(getColor(R.color.nav_active))
-            }
+    override fun onDestroy() {
+        // Al salir de la pantalla (botón atrás, cierre de sesión, ...) se guarda la sesión
+        // que quedó en curso. Un cambio de configuración no la cierra: se restaura con la Activity.
+        if (isFinishing) {
+            finalizarSesionUso()
         }
+        super.onDestroy()
+    }
+
+    private fun iniciarSesionUso() {
+        horaInicioSesion = Date()
+        oidoSesionActual = selectedEar
+    }
+
+    private fun finalizarSesionUso() {
+        val inicio = horaInicioSesion
+        horaInicioSesion = null
+        if (inicio == null) return
+
+        val formato = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val formatoHora = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val oido = if (oidoSesionActual == "left") {
+            getString(R.string.home_ear_left)
+        } else {
+            getString(R.string.home_ear_right)
+        }
+        val sesion = SesionUso(
+            fecha = formato.format(inicio),
+            horaInicio = formatoHora.format(inicio),
+            horaFin = formatoHora.format(Date()),
+            oido = oido
+        )
+        HistorialPreferences(this).agregarSesion(sesion)
+    }
+
+    private companion object {
+        /** Alfa de las secciones que no aplican cuando la amplificación está apagada. */
+        const val ALFA_SECCION_INACTIVA = 0.45f
     }
 }

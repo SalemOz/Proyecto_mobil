@@ -7,13 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SesionesAdapter(
-    private var sesiones: List<SesionUso>
+    private val sesiones: List<SesionUso>
 ) : RecyclerView.Adapter<SesionesAdapter.SesionViewHolder>() {
 
     class SesionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvFecha: TextView = itemView.findViewById(R.id.tv_sesion_fecha)
-        val tvHorario: TextView = itemView.findViewById(R.id.tv_sesion_horario)
-        val tvOido: TextView = itemView.findViewById(R.id.tv_sesion_oido)
+        val tvDate: TextView = itemView.findViewById(R.id.tv_session_date)
+        val tvTime: TextView = itemView.findViewById(R.id.tv_session_time)
+        val tvEar: TextView = itemView.findViewById(R.id.tv_session_ear)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SesionViewHolder {
@@ -24,15 +24,14 @@ class SesionesAdapter(
 
     override fun onBindViewHolder(holder: SesionViewHolder, position: Int) {
         val sesion = sesiones[position]
-        holder.tvFecha.text = sesion.fecha
-        holder.tvHorario.text = "Inicio: ${sesion.horaInicio}  •  Fin: ${sesion.horaFin}"
-        holder.tvOido.text = sesion.oido
+        holder.tvDate.text = sesion.fecha
+        holder.tvTime.text = holder.itemView.context.getString(
+            R.string.history_session_time,
+            sesion.horaInicio,
+            sesion.horaFin
+        )
+        holder.tvEar.text = sesion.oido
     }
 
     override fun getItemCount(): Int = sesiones.size
-
-    fun actualizarLista(nuevaLista: List<SesionUso>) {
-        sesiones = nuevaLista
-        notifyDataSetChanged()
-    }
 }

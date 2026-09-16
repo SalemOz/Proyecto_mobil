@@ -2,13 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_light_blue"
     tools:context=".HomeActivity">
 
-    <!-- Scrollable content area -->
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
@@ -25,44 +23,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="24dp">
+            android:paddingStart="@dimen/screen_padding_horizontal"
+            android:paddingTop="@dimen/screen_padding_vertical"
+            android:paddingEnd="@dimen/screen_padding_horizontal"
+            android:paddingBottom="@dimen/space_2xl">
 
-            <!-- Top bar: hamburger menu + notification bell -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <include layout="@layout/view_top_bar" />
 
-                <ImageView
-                    android:id="@+id/iv_menu"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:contentDescription="@string/nav_home"
-                    android:padding="2dp"
-                    android:src="@drawable/ic_menu" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/iv_notification"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:contentDescription="@string/nav_settings"
-                    android:padding="2dp"
-                    android:src="@drawable/ic_notifications" />
-            </LinearLayout>
-
-            <!-- Greeting section with ear illustration -->
+            <!-- Saludo + ilustración del oído -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="@dimen/space_lg">
 
                 <LinearLayout
                     android:id="@+id/ll_greeting"
@@ -75,49 +47,49 @@
 
                     <TextView
                         android:id="@+id/tv_greeting"
+                        style="@style/Text.Oido.ScreenTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/home_greeting"
-                        android:textColor="@color/text_primary"
-                        android:textSize="24sp"
                         tools:text="¡Hola, Delia! 👋" />
 
                     <TextView
                         android:id="@+id/tv_config_label"
+                        style="@style/Text.Oido.Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/home_config_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:text="@string/home_config_label" />
 
-                    <!-- Ear configuration chip -->
+                    <!-- Oído configurado -->
                     <LinearLayout
                         android:id="@+id/ll_ear_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_chip_selected"
+                        android:layout_marginTop="@dimen/space_sm"
+                        android:background="@drawable/bg_chip"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="6dp">
+                        android:paddingStart="@dimen/space_md"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="@dimen/space_md"
+                        android:paddingBottom="6dp">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:contentDescription="@null"
-                            android:src="@drawable/ic_ear_small" />
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_ear_small"
+                            app:tint="@color/brand_primary" />
 
                         <TextView
                             android:id="@+id/tv_ear_type"
+                            style="@style/Text.Oido.BodySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/primary_blue"
-                            android:textSize="13sp"
+                            android:textColor="@color/brand_primary"
                             tools:text="Oído derecho" />
                     </LinearLayout>
                 </LinearLayout>
@@ -129,21 +101,17 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
+                    android:importantForAccessibility="no"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ear_left" />
+                    android:src="@drawable/ear_right" />
             </RelativeLayout>
 
-            <!-- Amplification & Connection card -->
+            <!-- Tarjeta: amplificación y estado de la conexión -->
             <LinearLayout
                 android:id="@+id/ll_amplification_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_home_card"
-                android:orientation="vertical"
-                android:padding="20dp">
+                style="@style/Widget.Oido.Card"
+                android:layout_marginTop="@dimen/space_2xl">
 
-                <!-- Amplification toggle row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,40 +126,34 @@
 
                         <TextView
                             android:id="@+id/tv_amplification_title"
+                            style="@style/Text.Oido.CardTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/home_amplification_title"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp" />
+                            android:text="@string/home_amplification_title" />
 
                         <TextView
                             android:id="@+id/tv_amplification_desc"
+                            style="@style/Text.Oido.BodySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/home_amplification_desc"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
+                            android:layout_marginTop="@dimen/space_xs"
+                            android:text="@string/home_amplification_desc" />
                     </LinearLayout>
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_amplification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
                         android:checked="true"
-                        app:thumbTint="@color/primary_blue"
-                        app:trackTint="@color/toggle_track_on" />
+                        android:contentDescription="@string/home_amplification_title" />
                 </LinearLayout>
 
-                <!-- Divider -->
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="16dp"
-                    android:background="@color/border_default" />
+                    style="@style/Widget.Oido.Divider"
+                    android:layout_marginTop="@dimen/space_lg"
+                    android:layout_marginBottom="@dimen/space_lg" />
 
-                <!-- Connection status row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -206,17 +168,15 @@
 
                         <TextView
                             android:id="@+id/tv_connection_title"
+                            style="@style/Text.Oido.CardTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/home_connection_title"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp" />
+                            android:text="@string/home_connection_title" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="@dimen/space_sm"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -228,33 +188,33 @@
 
                             <TextView
                                 android:id="@+id/tv_mic_status"
+                                style="@style/Text.Oido.BodySmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="@dimen/space_sm"
                                 android:text="@string/home_mic_active"
-                                android:textColor="@color/green_active"
-                                android:textSize="13sp" />
+                                android:textColor="@color/success" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <ImageView
                         android:id="@+id/iv_microphone"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_ambient_button"
-                        android:contentDescription="@string/home_mic_active"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_mic" />
+                        android:layout_width="@dimen/icon_lg"
+                        android:layout_height="@dimen/icon_lg"
+                        android:background="@drawable/bg_chip"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:padding="@dimen/space_md"
+                        android:src="@drawable/ic_mic"
+                        app:tint="@color/brand_primary" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Volume control section -->
+            <!-- Tarjeta: volumen de salida -->
             <LinearLayout
                 android:id="@+id/ll_volume_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="vertical">
+                style="@style/Widget.Oido.Card"
+                android:layout_marginTop="@dimen/space_lg">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -263,65 +223,65 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/home_volume_title"
-                        android:src="@drawable/ic_volume" />
+                        android:layout_width="@dimen/icon_md"
+                        android:layout_height="@dimen/icon_md"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_volume"
+                        app:tint="@color/brand_primary" />
 
                     <TextView
                         android:id="@+id/tv_volume_title"
+                        style="@style/Text.Oido.CardTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/space_sm"
                         android:layout_weight="1"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/home_volume_title"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp" />
+                        android:text="@string/home_volume_title" />
 
                     <TextView
                         android:id="@+id/tv_volume_percent"
+                        style="@style/Text.Oido.RowValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_chip_selected"
+                        android:background="@drawable/bg_chip"
                         android:fontFamily="sans-serif-medium"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:textColor="@color/primary_blue"
-                        android:textSize="14sp"
+                        android:paddingStart="@dimen/space_md"
+                        android:paddingTop="@dimen/space_xs"
+                        android:paddingEnd="@dimen/space_md"
+                        android:paddingBottom="@dimen/space_xs"
+                        android:textColor="@color/brand_primary"
                         tools:text="70%" />
                 </LinearLayout>
 
                 <com.google.android.material.slider.Slider
-                    android:id="@+id/seekbar_volume"
+                    android:id="@+id/slider_volume"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
                     android:contentDescription="@string/home_volume_title"
-                    app:haloColor="@color/primary_blue_background"
-                    app:thumbColor="@color/primary_blue"
+                    android:value="70"
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    app:haloColor="@color/brand_primary_container"
+                    app:thumbColor="@color/brand_primary"
                     app:thumbElevation="4dp"
                     app:thumbRadius="10dp"
                     app:tickVisible="false"
-                    app:trackColorActive="@color/primary_blue"
+                    app:trackColorActive="@color/brand_primary"
                     app:trackColorInactive="@color/slider_track"
-                    app:trackHeight="8dp"
-                    android:value="70"
-                    android:valueFrom="0"
-                    android:valueTo="100" />
+                    app:trackHeight="8dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/Text.Oido.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0%"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:text="@string/home_volume_min" />
 
                     <View
                         android:layout_width="0dp"
@@ -329,21 +289,18 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        style="@style/Text.Oido.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100%"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:text="@string/home_volume_max" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Ambient mode section -->
+            <!-- Tarjeta: modo de ambiente -->
             <LinearLayout
                 android:id="@+id/ll_ambient_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="vertical">
+                style="@style/Widget.Oido.Card"
+                android:layout_marginTop="@dimen/space_lg">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -354,124 +311,82 @@
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_leaf" />
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_leaf"
+                        app:tint="@color/brand_accent" />
 
-                <TextView
-                    android:id="@+id/tv_ambient_title"
+                    <TextView
+                        android:id="@+id/tv_ambient_title"
+                        style="@style/Text.Oido.CardTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/home_ambient_title"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp" />
+                        android:layout_marginStart="@dimen/space_sm"
+                        android:text="@string/home_ambient_title" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_ambient_desc"
+                    style="@style/Text.Oido.BodySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/home_ambient_desc"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:text="@string/home_ambient_desc" />
 
-                <!-- Ambient mode buttons -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="@dimen/space_lg"
                     android:orientation="horizontal">
 
-                    <!-- Low -->
+                    <!-- Bajo (seleccionado por defecto) -->
                     <LinearLayout
                         android:id="@+id/btn_ambient_low"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_ambient_button_selected"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingVertical="12dp">
+                        style="@style/Widget.Oido.AmbientButton"
+                        android:layout_marginEnd="@dimen/space_sm">
 
                         <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            style="@style/Widget.Oido.AmbientIcon"
                             android:contentDescription="@null"
+                            android:importantForAccessibility="no"
                             android:src="@drawable/ic_leaf" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/home_ambient_low"
-                            android:textColor="@color/primary_blue"
-                            android:textSize="13sp" />
+                            style="@style/Widget.Oido.AmbientLabel"
+                            android:text="@string/home_ambient_low" />
                     </LinearLayout>
 
-                    <!-- Medium -->
+                    <!-- Medio -->
                     <LinearLayout
                         android:id="@+id/btn_ambient_mid"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_ambient_button"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingVertical="12dp">
+                        style="@style/Widget.Oido.AmbientButton"
+                        android:layout_marginEnd="@dimen/space_sm">
 
                         <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            style="@style/Widget.Oido.AmbientIcon"
                             android:contentDescription="@null"
+                            android:importantForAccessibility="no"
                             android:src="@drawable/ic_wave_medium" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/home_ambient_mid"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
+                            style="@style/Widget.Oido.AmbientLabel"
+                            android:text="@string/home_ambient_mid" />
                     </LinearLayout>
 
-                    <!-- High -->
+                    <!-- Alto -->
                     <LinearLayout
                         android:id="@+id/btn_ambient_high"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_ambient_button"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingVertical="12dp">
+                        style="@style/Widget.Oido.AmbientButton">
 
                         <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            style="@style/Widget.Oido.AmbientIcon"
                             android:contentDescription="@null"
+                            android:importantForAccessibility="no"
                             android:src="@drawable/ic_wave_high" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/home_ambient_high"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
+                            style="@style/Widget.Oido.AmbientLabel"
+                            android:text="@string/home_ambient_high" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -479,120 +394,13 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
-    <LinearLayout
+    <include
         android:id="@+id/bottom_nav_container"
-        android:layout_width="match_parent"
+        layout="@layout/view_bottom_nav"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/bg_bottom_nav"
-        android:elevation="8dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Divider line at top -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/border_default" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <!-- Inicio (Home) -->
-            <LinearLayout
-                android:id="@+id/nav_home"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_nav_home"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="@string/nav_home"
-                    android:src="@drawable/ic_home" />
-
-                <TextView
-                    android:id="@+id/tv_nav_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/nav_home"
-                    android:textColor="@color/nav_active"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <!-- Historial (History) -->
-            <LinearLayout
-                android:id="@+id/nav_history"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_nav_history"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="@string/nav_history"
-                    android:src="@drawable/ic_history" />
-
-                <TextView
-                    android:id="@+id/tv_nav_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/nav_history"
-                    android:textColor="@color/nav_inactive"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <!-- Ajustes (Settings) -->
-            <LinearLayout
-                android:id="@+id/nav_settings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_nav_settings"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="@string/nav_settings"
-                    android:src="@drawable/ic_settings" />
-
-                <TextView
-                    android:id="@+id/tv_nav_settings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/nav_settings"
-                    android:textColor="@color/nav_inactive"
-                    android:textSize="11sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

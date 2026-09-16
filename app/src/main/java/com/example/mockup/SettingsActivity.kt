@@ -2,19 +2,12 @@ package com.example.mockup
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.switchmaterial.SwitchMaterial
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     // Views
     private lateinit var tvAvatarLetter: TextView
@@ -30,15 +23,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var rowLogout: LinearLayout
 
     // Bottom nav
-    private lateinit var navHome: LinearLayout
-    private lateinit var navHistory: LinearLayout
-    private lateinit var navSettings: LinearLayout
-    private lateinit var ivNavHome: ImageView
-    private lateinit var ivNavHistory: ImageView
-    private lateinit var ivNavSettings: ImageView
-    private lateinit var tvNavHome: TextView
-    private lateinit var tvNavHistory: TextView
-    private lateinit var tvNavSettings: TextView
+    private lateinit var bottomNav: BottomNav
 
     // State
     private var userName: String = "Usuario"
@@ -46,20 +31,9 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_settings)
-        window.statusBarColor = getColor(R.color.settings_bg)
-        window.navigationBarColor = getColor(R.color.settings_bg)
-        WindowInsetsControllerCompat(window, window.decorView).apply {
-            isAppearanceLightStatusBars = true
-            isAppearanceLightNavigationBars = true
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
-        }
+        prepararVentana(R.id.root)
+        conectarBarraSuperior()
 
         // Get data from intent
         userName = intent.getStringExtra("USER_NAME")?.trim().takeUnless { it.isNullOrEmpty() } ?: "Usuario"
@@ -69,7 +43,17 @@ class SettingsActivity : AppCompatActivity() {
         setupProfile()
         setupPreferences()
         setupSupportRows()
-        setupBottomNav()
+
+        // El resaltado de la barra inferior es el mismo en las tres pantallas (selector
+        // @color/nav_item_color), así que Ajustes ya no pasa sus propios colores.
+        bottomNav = BottomNav(this, BottomNav.AJUSTES, userName, selectedEar)
+        bottomNav.instalar()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Igual que en las otras pantallas: el resaltado se reaplica al reanudar.
+        bottomNav.marcarActiva()
     }
 
     private fun initViews() {
@@ -84,19 +68,10 @@ class SettingsActivity : AppCompatActivity() {
         rowHelp = findViewById(R.id.row_help)
         rowAbout = findViewById(R.id.row_about)
         rowLogout = findViewById(R.id.row_logout)
-
-        navHome = findViewById(R.id.nav_home)
-        navHistory = findViewById(R.id.nav_history)
-        navSettings = findViewById(R.id.nav_settings)
-        ivNavHome = findViewById(R.id.iv_nav_home)
-        ivNavHistory = findViewById(R.id.iv_nav_history)
-        ivNavSettings = findViewById(R.id.iv_nav_settings)
-        tvNavHome = findViewById(R.id.tv_nav_home)
-        tvNavHistory = findViewById(R.id.tv_nav_history)
-        tvNavSettings = findViewById(R.id.tv_nav_settings)
     }
 
     private fun setupProfile() {
+        // La inicial del avatar es decorativa: el nombre completo está justo al lado.
         tvAvatarLetter.text = if (userName.isNotEmpty()) userName.first().uppercaseChar().toString() else "?"
         tvProfileName.text = userName
 
@@ -110,14 +85,20 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupPreferences() {
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
-            val msg = if (isChecked) "Notificaciones activadas" else "Notificaciones desactivadas"
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            mostrarMensaje(
+                if (isChecked) R.string.settings_notifications_on
+                else R.string.settings_notifications_off
+            )
         }
 
         rowDefaultAmbient.setOnClickListener {
-            val modes = arrayOf("Bajo", "Medio", "Alto")
+            val modes = arrayOf(
+                getString(R.string.home_ambient_low),
+                getString(R.string.home_ambient_mid),
+                getString(R.string.home_ambient_high)
+            )
             AlertDialog.Builder(this)
-                .setTitle("Modo de ambiente")
+                .setTitle(R.string.settings_ambient_dialog_title)
                 .setSingleChoiceItems(modes, modes.indexOf(tvDefaultAmbientValue.text.toString())) { dialog, which ->
                     tvDefaultAmbientValue.text = modes[which]
                     dialog.dismiss()
@@ -127,9 +108,9 @@ class SettingsActivity : AppCompatActivity() {
 
         rowLanguage.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Idioma")
-                .setSingleChoiceItems(arrayOf("Español"), 0) { dialog, _ ->
-                    tvLanguageValue.text = "Español"
+                .setTitle(R.string.settings_language_dialog_title)
+                .setSingleChoiceItems(arrayOf(getString(R.string.settings_spanish)), 0) { dialog, _ ->
+                    tvLanguageValue.text = getString(R.string.settings_spanish)
                     dialog.dismiss()
                 }
                 .show()
@@ -139,26 +120,26 @@ class SettingsActivity : AppCompatActivity() {
     private fun setupSupportRows() {
         rowHelp.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Ayuda y soporte")
-                .setMessage("Selecciona tu oído afectado y configura el volumen desde la pantalla de inicio.")
-                .setPositiveButton("Entendido", null)
+                .setTitle(R.string.settings_help)
+                .setMessage(R.string.settings_help_message)
+                .setPositiveButton(R.string.settings_help_confirm, null)
                 .show()
         }
 
         rowAbout.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Acerca de Oído+")
-                .setMessage("Oído+\nVersión 1.0")
-                .setPositiveButton("Cerrar", null)
+                .setTitle(R.string.settings_about)
+                .setMessage(R.string.settings_about_message)
+                .setPositiveButton(R.string.settings_about_confirm, null)
                 .show()
         }
 
         rowLogout.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Cerrar sesión")
-                .setMessage("¿Quieres volver a la pantalla inicial?")
-                .setNegativeButton("Cancelar", null)
-                .setPositiveButton("Cerrar sesión") { _, _ ->
+                .setTitle(R.string.settings_logout)
+                .setMessage(R.string.settings_logout_message)
+                .setNegativeButton(R.string.settings_logout_cancel, null)
+                .setPositiveButton(R.string.settings_logout) { _, _ ->
                     // Borrar solo la sesión del usuario, el historial se conserva
                     UserPreferences(this).cerrarSesion()
                     startActivity(Intent(this, MainActivity::class.java).apply {
@@ -167,38 +148,5 @@ class SettingsActivity : AppCompatActivity() {
                 }
                 .show()
         }
-    }
-
-    private fun setupBottomNav() {
-        navHome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java).apply {
-                putExtra("USER_NAME", userName)
-                putExtra("SELECTED_EAR", selectedEar)
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
-            startActivity(intent)
-            finish()
-        }
-        navHistory.setOnClickListener {
-            val intent = Intent(this, HistorialActivity::class.java).apply {
-                putExtra("USER_NAME", userName)
-                putExtra("SELECTED_EAR", selectedEar)
-            }
-            startActivity(intent)
-            finish()
-        }
-        navSettings.setOnClickListener {
-            // Already on settings
-        }
-
-        val inactiveColor = getColor(R.color.settings_text_muted)
-        ivNavHome.setColorFilter(inactiveColor)
-        ivNavHistory.setColorFilter(inactiveColor)
-        tvNavHome.setTextColor(inactiveColor)
-        tvNavHistory.setTextColor(inactiveColor)
-
-        // Highlight active tab
-        ivNavSettings.setColorFilter(getColor(R.color.brand_blue))
-        tvNavSettings.setTextColor(getColor(R.color.brand_blue))
     }
 }

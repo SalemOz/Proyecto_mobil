@@ -1,49 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Oído+</string>
 
-    <!-- Welcome Screen -->
+    <!-- ============================ Bienvenida ============================ -->
     <string name="welcome_title">Oído</string>
     <string name="welcome_subtitle">Escucha tu entorno con confianza.</string>
     <string name="welcome_description">Una herramienta que capta los sonidos de tu alrededor y los reproduce en tu oído sano, ayudándote a percibir lo que ocurre a tu lado afectado.</string>
     <string name="welcome_button">COMENZAR</string>
     <string name="welcome_footer">Tu entorno, más cerca.</string>
 
-    <!-- Home Screen -->
+    <!-- ===================== Onboarding (primer uso) ====================== -->
+    <string name="onboarding_title">Cuéntanos sobre ti</string>
+    <string name="onboarding_subtitle">Para personalizar tu experiencia,\nnecesitamos conocerte un poco.</string>
+    <string name="onboarding_name_question">¿Cómo te llamas?</string>
+    <string name="onboarding_name_hint">Escribe tu nombre…</string>
+    <string name="onboarding_ear_question">¿Qué oído está afectado?</string>
+    <string name="onboarding_ear_left">Izquierdo</string>
+    <string name="onboarding_ear_right">Derecho</string>
+    <string name="onboarding_ear_left_description">Usar el oído izquierdo</string>
+    <string name="onboarding_ear_right_description">Usar el oído derecho</string>
+    <string name="onboarding_privacy_notice">Solo solicitamos la información necesaria\npara configurar tu experiencia.</string>
+    <string name="onboarding_continue">Continuar</string>
+
+    <string name="error_name_required">Por favor, ingresa tu nombre</string>
+    <string name="error_name_invalid">Nombre no válido. Usa solo letras, espacios, guiones o apóstrofes (2–50 caracteres)</string>
+    <string name="error_name_repeated">El nombre no debe tener caracteres repetidos consecutivos</string>
+    <string name="error_name_reserved">Este nombre no está permitido</string>
+
+    <!-- ============================== Inicio ============================== -->
     <string name="home_greeting">¡Hola, %s! 👋</string>
     <string name="home_config_label">Tu configuración actual:</string>
     <string name="home_ear_right">Oído derecho</string>
     <string name="home_ear_left">Oído izquierdo</string>
     <string name="home_amplification_title">Amplificación activa</string>
     <string name="home_amplification_desc">Los sonidos del lado afectado se redirigen a tu oído sano.</string>
+    <string name="home_amplification_on">Amplificación activada</string>
+    <string name="home_amplification_off">Amplificación desactivada</string>
     <string name="home_connection_title">Estado de la conexión</string>
     <string name="home_mic_active">Micrófono activo</string>
     <string name="home_volume_title">Volumen de salida</string>
     <string name="home_volume_percent">%d%%</string>
+    <string name="home_volume_min">0%</string>
+    <string name="home_volume_max">100%</string>
     <string name="home_ambient_title">Modo de ambiente</string>
     <string name="home_ambient_desc">Ajusta cuánta conciencia del entorno deseas.</string>
     <string name="home_ambient_low">Bajo</string>
     <string name="home_ambient_mid">Medio</string>
     <string name="home_ambient_high">Alto</string>
+
+    <!-- ======================== Navegación y barra ======================== -->
     <string name="nav_home">Inicio</string>
     <string name="nav_history">Historial</string>
     <string name="nav_settings">Ajustes</string>
+    <string name="action_menu">Abrir el menú</string>
+    <string name="action_notifications">Notificaciones</string>
+    <string name="action_coming_soon">Esta acción estará disponible pronto.</string>
 
-    <!-- History Screen -->
+    <!-- ============================ Historial ============================= -->
     <string name="history_title">Historial de sesiones</string>
     <string name="history_empty">Aún no hay sesiones registradas.</string>
+    <string name="history_session_time">Inicio: %1$s  •  Fin: %2$s</string>
 
-    <!-- Settings Screen -->
+    <!-- ============================= Ajustes ============================== -->
     <string name="settings_title">Ajustes</string>
     <string name="settings_affected_ear">Oído afectado: %s</string>
     <string name="settings_ear_right">derecho</string>
     <string name="settings_ear_left">izquierdo</string>
     <string name="settings_preferences">Preferencias</string>
     <string name="settings_notifications">Notificaciones</string>
-    <string name="settings_default_ambient">Modo de ambiente por defecto</string>
+    <string name="settings_notifications_on">Notificaciones activadas</string>
+    <string name="settings_notifications_off">Notificaciones desactivadas</string>
+    <string name="settings_default_ambient">Modo de ambiente</string>
+    <string name="settings_ambient_dialog_title">Modo de ambiente</string>
     <string name="settings_language">Idioma</string>
+    <string name="settings_language_dialog_title">Idioma</string>
     <string name="settings_spanish">Español</string>
     <string name="settings_support">Soporte</string>
     <string name="settings_help">Ayuda y soporte</string>
+    <string name="settings_help_message">Selecciona tu oído afectado y configura el volumen desde la pantalla de inicio.</string>
+    <string name="settings_help_confirm">Entendido</string>
     <string name="settings_about">Acerca de Oído+</string>
+    <string name="settings_about_message">Oído+\nVersión 1.0</string>
+    <string name="settings_about_confirm">Cerrar</string>
     <string name="settings_logout">Cerrar sesión</string>
+    <string name="settings_logout_message">¿Quieres volver a la pantalla inicial?</string>
+    <string name="settings_logout_cancel">Cancelar</string>
 </resources>

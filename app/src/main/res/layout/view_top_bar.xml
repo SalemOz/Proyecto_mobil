@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Barra superior compartida por Inicio, Historial y Ajustes: menú a la izquierda,
+  notificaciones a la derecha. Antes estaba copiada en los tres layouts con etiquetas de
+  accesibilidad cruzadas (el menú se anunciaba como "Inicio").
+
+  Las dos acciones todavía no están implementadas; BaseActivity les da respuesta al pulsar
+  para que no sean iconos muertos.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        style="@style/Widget.Oido.TopBarIcon"
+        android:contentDescription="@string/action_menu"
+        android:src="@drawable/ic_menu" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/iv_notifications"
+        style="@style/Widget.Oido.TopBarIcon"
+        android:contentDescription="@string/action_notifications"
+        android:src="@drawable/ic_notifications" />
+</LinearLayout>
